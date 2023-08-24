@@ -1,2 +1,3 @@
 # hello-world
-My first repository on GitHub
+u0808284
+Corinne Jones
