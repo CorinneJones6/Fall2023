@@ -9,7 +9,7 @@
 
 int main(int argc, const char * argv[]) {
     // insert code here...
-    int itemPrice, paidAmount, differenceAmount, differenceQuarters, differenceDimes,differenceNickels, differencePennies;
+    int itemPrice, paidAmount, differenceAmount, differenceQuarters, differenceDimes, differenceNickels, differencePennies;
     
     std::cout << "Enter item price \n";
     std::cin >> itemPrice;
