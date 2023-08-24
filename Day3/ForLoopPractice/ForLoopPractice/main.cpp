@@ -80,7 +80,7 @@ int main(int argc, const char * argv[])
 
     }
 }
-    
+
 
 
 
@@ -161,7 +161,7 @@ int main(int argc, const char * argv[])
             std::cout << i*j << " ";
             
         }
-        std::cout << "\r\n";
+        std::cout << "\n";
     }
 
 
