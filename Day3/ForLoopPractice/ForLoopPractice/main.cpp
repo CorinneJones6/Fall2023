@@ -21,7 +21,7 @@ int main(int argc, const char * argv[])
 
     // This is a "while" loop that prints the numbers 1-10
     while (number<10) {
-        number = number +1;
+        number += 1;
         std::cout << number << '\n';
     }
 
@@ -33,19 +33,12 @@ int main(int argc, const char * argv[])
     }
 
     /*For this example, I think that it doesn't really matter which loop that you use. You know how many times it is going to be done, so you could choose to do the "For" loop. However, the "while" loop is currently easier for me to understand.*/
-}
-
-
-
-
-
 
 
 
 
 
 //Enter two numbers and count every number between the two of them.
-{
 
     int firstNumber, secondNumber;
 
@@ -58,7 +51,7 @@ int main(int argc, const char * argv[])
     std::cin >> secondNumber;
 
 
-    std::cout << "\nSince I am sure you wnat to know, here are all the numbers between your two numbers\n";
+    std::cout << "\nSince I am sure you wnat to know, here are all the numbers between your two numbers:\n";
 
     //first loop for when the first number is less than the second number
     if (firstNumber < secondNumber) {
@@ -79,9 +72,6 @@ int main(int argc, const char * argv[])
         }
 
     }
-}
-
-
 
 
 
@@ -90,10 +80,11 @@ int main(int argc, const char * argv[])
 
 
 //State all the odd numbers between 1-20
-{
-    int number;
+ 
     number=1;
 
+    std::cout << "Here are all the numbers between 1-20"<< std::endl;
+    
     for (number=1;number<20;number=number+2) {
         std::cout << number << '\n';
     }
@@ -110,21 +101,17 @@ int main(int argc, const char * argv[])
             }
     }
     /*using just a "for" is a lot easier because then it isn't imbedded in a "for"*/
-}
-
-
-
-
+    
 
 
 
 
 //Enter positive numbers to add upp until one.
-{
+
     int input = 0, sumAll = 0;
 
 //output on the screen
-    std::cout<<"Please enter positive numbers \n";
+    std::cout<<"Please enter numbers >0 \n";
 
     // "do/while" loop - continue to do this thing while this other condition is being met.
     do {
@@ -137,10 +124,7 @@ int main(int argc, const char * argv[])
     //Based on how I wrote the code I was continuing add the negative number. I went ahead and subtracted the last input from the sum to ignore that number.
         sumAll = sumAll - input;
 
-    std::cout<<"When you add these numbers together you get" << "\n" << sumAll;
-
-}
-
+    std::cout <<"When you add these numbers together you get" << "\n" << sumAll;
 
 
 
@@ -150,22 +134,21 @@ int main(int argc, const char * argv[])
 
 
 //Print a multiplication table for the numbers 1 to 5
-{
 
-    
-    for (int j=1; j<=5; j=j+1){
-        std::cout << j << "x*: ";
         
         
-        for (int i=1; i<=5; i=i+1){
-            std::cout << i*j << " ";
+        for (int j=1; j<=5; j=j+1){
+            std::cout << j << "x*: ";
             
+            
+            for (int i=1; i<=5; i=i+1){
+                std::cout << i*j << " ";
+                
+            }
+            std::cout << "\n";
         }
-        std::cout << "\n";
     }
 
 
-    }
-    
     
 
