@@ -53,7 +53,7 @@ std::string boolToString(bool userInput) {
     
 bool isPrime (int numberToCheck) {
     
-    for (int count=2; count<numberToCheck/2; count++) {
+    for (int count=1; count<numberToCheck/2; count++) {
         
         if (numberToCheck%count==0)
             
