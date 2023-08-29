@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B67E424E2A9D297900282217 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67E424D2A9D297900282217 /* main.cpp */; };
+		B67E425A2A9E403300282217 /* VectorTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67E42592A9E403300282217 /* VectorTest.cpp */; };
+		B67E425D2A9E405700282217 /* VectorUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B67E425C2A9E405700282217 /* VectorUtil.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		B67E424A2A9D297900282217 /* VectorHW */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = VectorHW; sourceTree = BUILT_PRODUCTS_DIR; };
-		B67E424D2A9D297900282217 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		B67E42592A9E403300282217 /* VectorTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorTest.cpp; sourceTree = SOURCE_ROOT; };
+		B67E425B2A9E405700282217 /* VectorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VectorUtil.h; sourceTree = SOURCE_ROOT; };
+		B67E425C2A9E405700282217 /* VectorUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VectorUtil.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,9 @@
 		B67E424C2A9D297900282217 /* VectorHW */ = {
 			isa = PBXGroup;
 			children = (
-				B67E424D2A9D297900282217 /* main.cpp */,
+				B67E42592A9E403300282217 /* VectorTest.cpp */,
+				B67E425C2A9E405700282217 /* VectorUtil.cpp */,
+				B67E425B2A9E405700282217 /* VectorUtil.h */,
 			);
 			path = VectorHW;
 			sourceTree = "<group>";
@@ -119,7 +124,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B67E424E2A9D297900282217 /* main.cpp in Sources */,
+				B67E425A2A9E403300282217 /* VectorTest.cpp in Sources */,
+				B67E425D2A9E405700282217 /* VectorUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
