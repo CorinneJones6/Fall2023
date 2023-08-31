@@ -53,20 +53,15 @@ std::vector<cards> dealFiveCards(std::vector<cards>deckOfCards){
 bool isFlush (std::vector<cards>deckOfCards){
     for (int i=0; i<4; i++){
         if(deckOfCards[i].suit!=deckOfCards[i+1].suit){
-            std::cout <<"This is false";
             return false;
         }
     }
-    std::cout<<"This is true";
     return true;
 }
 
 
 bool sortOneCard (cards card1, cards card2){
-    if (card1.rank<card2.rank) {
-        return true;
-    }
-    return false;
+    return (card1.rank<card2.rank);
 }
 
 void sortFiveCards(std::vector<cards>&deckOfFive){
@@ -78,35 +73,25 @@ bool isStraight (std::vector<cards>deckOfFive){
     sortFiveCards(deckOfFive);
     for (int i=0; i<4; i++){
         if(deckOfFive[i+1].rank-deckOfFive[i].rank!=1) {
-            std::cout<<"False!";
             return false;
         }
     }
-    std::cout << "True! \n";
     return true;
 }
 
 
-bool isStraightFlush(std::vector<cards>deckofCards){
-    if (isFlush(deckofCards)==true&&isStraight(deckofCards)==true){
-        return true;
+bool isStraightFlush(std::vector<cards>deckOfFive){
+    return (isFlush(deckOfFive)&&isStraight(deckOfFive));
     }
-    return false;
+ 
+
+bool isRoyalFlush(std::vector<cards>deckOfFive){
+   return (isStraightFlush(deckOfFive) && deckOfFive.front().rank == 10);
 }
 
-//bool isRoyalFlush(std::vector<cards>deckofCards){
-//    if (isFlush(deckofCards)==true&&isStraight(deckofCards)==true) {
-//        for (int i=0, i<4, i++){
-//            if(deckOfFive[i].rank!=10) {
-//                std::cout<<"False!";
-//                return false;
-//            }
-//        }
-//    }
-//    std::cout << "True! \n";
-//    return true;
-//}
-
+bool isFullHouse (std::vector<cards>deckOfFive){
+    return (deckOfFive[0].rank==deckOfFive[1].rank&&deckOfFive[3].rank==deckOfFive[4].rank&&(deckOfFive[2].rank==deckOfFive[3].rank||deckOfFive[2].rank==deckOfFive[1].rank));
+}
 
 void printDeck(std::vector <cards> deckOfCards){
     for (cards c: deckOfCards){
