@@ -49,6 +49,7 @@ int countConsonant (std::string sentenceInput){
     }
     return consonantCount;
 }
+/*This counts the vowels+consonants in a word, once it gets to a space it pushes that into a count for the string. */
 double vowelAndConsonantCount (std::string sentenceInput){
     int stringVowelConsonantCount=0;
     int wordVowelConsonantCount=0;
@@ -61,9 +62,11 @@ double vowelAndConsonantCount (std::string sentenceInput){
             wordVowelConsonantCount=0;
         }
     }
+    /*This wasn't added the last wordVowelConsonantCount since it wasn't entering that else-if loop the last time through.*/
     stringVowelConsonantCount+=wordVowelConsonantCount;
     return stringVowelConsonantCount;
 }
+
 double vowelCount (std::string sentenceInput){
         int stringVowelCount=0;
         int wordVowelCount=0;

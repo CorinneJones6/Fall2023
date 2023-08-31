@@ -29,7 +29,6 @@
 		B67E42362A9D1B2900282217 /* WordHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordHelpers.cpp; sourceTree = SOURCE_ROOT; };
 		B67E42372A9D1B2900282217 /* LetterHelpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LetterHelpers.hpp; sourceTree = SOURCE_ROOT; };
 		B67E42382A9D1B2900282217 /* WordHelpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = WordHelpers.hpp; sourceTree = SOURCE_ROOT; };
-		B67E423E2A9D24D900282217 /* StringAnalyzer copy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "StringAnalyzer copy"; sourceTree = SOURCE_ROOT; };
 		B67E423F2A9D253000282217 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		B6B638692A9A7AC70079F04D /* StringAnalyzer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = StringAnalyzer; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -64,7 +63,6 @@
 		B6B6386B2A9A7AC70079F04D /* StringAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				B67E423E2A9D24D900282217 /* StringAnalyzer copy */,
 				B67E42352A9D1B2900282217 /* LetterHelpers.cpp */,
 				B67E42372A9D1B2900282217 /* LetterHelpers.hpp */,
 				B67E42362A9D1B2900282217 /* WordHelpers.cpp */,

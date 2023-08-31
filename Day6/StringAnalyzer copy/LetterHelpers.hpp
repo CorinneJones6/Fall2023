@@ -14,7 +14,6 @@
 #include <string>
 #include <stdio.h>
 
-bool determineUserInput (std::string stringInput);
 bool isPunctuation (char charInput);
 bool isVowel (char charInput);
 bool isSpace (char charInput);
