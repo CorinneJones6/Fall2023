@@ -10,34 +10,19 @@
 #include "LetterHelpers.hpp"
 
 
-bool isPunctuation (char charInput){
-    if (charInput=='.' ||charInput=='?' ||charInput=='!') {
-        return true;
-    }
-    else {
-        return false;
-    }
+bool isEndOfSentence (char charInput){
+    return (charInput=='.' ||charInput=='?' ||charInput=='!');
 }
 
 bool isVowel (char charInput){
-    if (charInput=='A' ||charInput=='a' ||charInput=='E'||charInput=='e'||charInput=='I'||charInput=='i'||charInput=='O'||charInput=='o'||charInput=='U'||charInput=='u'||charInput=='Y'||charInput=='y') {
-        return true;
-    }
-        return false;
+    std::tolower(charInput);
+    return (charInput=='a'||charInput=='e'||charInput=='i'||charInput=='o'||charInput=='u'||charInput=='y');
+}
 
-}
 bool isSpace (char charInput){
-    if (charInput==' ')
-        return true;
-    else {
-        return false;
-    }
+    return (charInput==' ');
 }
+
 bool isConsonant (char charInput){
-    if (isPunctuation(charInput)==false&&isVowel(charInput)==false&&isSpace(charInput)==false){
-        return true;
-    }
-    else {
-        return false;
-    }
+    return (isEndOfSentence(charInput)==false&&isVowel(charInput)==false&&isSpace(charInput)==false);
 }

@@ -14,7 +14,7 @@
 #include <string>
 #include <stdio.h>
 
-bool isPunctuation (char charInput);
+bool isEndOfSentence (char charInput);
 bool isVowel (char charInput);
 bool isSpace (char charInput);
 bool isConsonant (char charInput);

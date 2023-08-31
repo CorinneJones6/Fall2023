@@ -12,12 +12,7 @@
 #include "WordHelpers.hpp"
 
 bool determineUserInput (std::string stringInput){
-    if (stringInput=="done"){
-        return false;
-    }
-    else {
-        return true;
-    }
+    return(stringInput!="done");
 }
 
 int main(int argc, const char * argv[]) {
@@ -57,7 +52,7 @@ int main(int argc, const char * argv[]) {
             std::cout << "Average vowels per word: " <<averageVowelsPerWordResult <<std::endl<<std::endl;
        
     }
-    while (userInputResult==true);
+    while (userInputResult);
     std::cout<<"Goodbye"<<std::endl;
         return 0;
     
