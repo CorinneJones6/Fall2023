@@ -41,10 +41,18 @@ void printNumWords (std::vector<std::string>inputVector){
         std::cout<<"Number of words: "<<inputVector.size()<<std::endl;
 }
 
+//int findNumbChars (std::vector<std::string>inputVector){
+//    int characters=0;
+//    for(std::string word: inputVector)
+//    {
+//        characters += word.size();
+//    }
+//    return count;
+//}
+
 void printNumChars (std::vector<std::string>inputVector){
     int count=0;
-
-    for( auto word: inputVector)
+    for(std::string word: inputVector)
     {
         count += word.size();
     }
@@ -56,14 +64,27 @@ void printNumChars (std::vector<std::string>inputVector){
 void inputWordOccurrence (std::vector<std::string>inputVector, std::string lookFor){
     int count=0;
 
-    for( auto word: inputVector)
-    {
+    for(std::string word: inputVector){
         if (word==lookFor) {
             count ++;
         }
     }
-    std::cout<<"Number of occurences of "<<lookFor<<": "<<count;
+    std::cout<<"The word "<<lookFor<<" occurs "<<count<<" times:";
     std::cout<<std::endl;
+    }
+
+void inputWordPlace (std::vector<std::string>inputVector, std::string lookFor){
+    int count=0;
+    int i=0;
+    for(std::string word: inputVector) {
+        count+=word.size();
+        i++;
+//        percent=count/findNumbChars;
+        if (word==lookFor) {
+            std::cout<<"at "<<count<<"%: "<<inputVector[i-2]<<" "<<lookFor<<" "<<inputVector[i];
+            std::cout<<std::endl;
+        }
+    }
     }
 
 void findShortWord (std::vector<std::string>inputVector){
@@ -71,7 +92,7 @@ void findShortWord (std::vector<std::string>inputVector){
         return;
     }
     std::string smallWord=inputVector[0];
-    for( auto word: inputVector){
+    for(std::string word: inputVector){
         if (word.size()<smallWord.size()) {
             smallWord=word;
         }
@@ -85,7 +106,7 @@ void findLongWord (std::vector<std::string>inputVector){
         return;
     }
     std::string bigWord=inputVector[0];
-    for( auto word: inputVector){
+    for(std::string word: inputVector){
         if (word.size()>bigWord.size()) {
             bigWord=word;
         }

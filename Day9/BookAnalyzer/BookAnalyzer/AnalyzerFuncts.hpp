@@ -17,7 +17,9 @@ void printTitle(std::vector<std::string>inputVector);
 void printAuthor (std::vector<std::string>inputVector);
 void printNumWords (std::vector<std::string>inputVector);
 void printNumChars (std::vector<std::string>inputVector);
+void findNumbChars (std::vector<std::string>inputVector);
 void inputWordOccurrence (std::vector<std::string>inputVector, std::string lookFor);
+void inputWordPlace (std::vector<std::string>inputVector, std::string lookFor);
 void findShortWord (std::vector<std::string>inputVector);
 void findLongWord (std::vector<std::string>inputVector);
 

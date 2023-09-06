@@ -33,6 +33,7 @@ int main(int argc, const char * argv[]) {
     std::cin>>searchWord;
     
     std::vector<std::string>bookVector;
+    
     while (inputFile >> stringWord){
         bookVector.push_back(stringWord);
     }
@@ -46,6 +47,7 @@ int main(int argc, const char * argv[]) {
     findShortWord (bookVector);
     findLongWord (bookVector);
     inputWordOccurrence (bookVector, searchWord);
+    inputWordPlace(bookVector, searchWord);
     
     return 0;
 }
