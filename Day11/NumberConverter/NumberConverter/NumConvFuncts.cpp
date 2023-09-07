@@ -8,6 +8,9 @@
 #include "NumConvFuncts.hpp"
 #include <cctype>
 #include <iostream>
+#include <vector>
+#include <iomanip>
+#include <string>
 
 
 
@@ -48,8 +51,45 @@ std::string intToBinaryString (int n){
     return s1; 
 }
 
-//std::string intToHexadecimalString (int n){
-//    intToBinaryString(n);
-//
-//
-//}
+std::vector<int> intToHexaString (int n){
+    std::vector<int>v1;
+    int r=0;
+    while (n>=1) {
+        r=n%16;
+        v1.push_back(r);
+        n/=16;
+    }
+    return v1;
+}
+
+void printHex(std::vector<int>hexResult){
+    for (int i=hexResult.size()-1; i>=0; i--) {
+        if (hexResult[i]==10) {
+            std::cout<<"A";
+        }
+        else if (hexResult[i]==11){
+            std::cout<<"B";
+        }
+        else if (hexResult[i]==12){
+            std::cout<<"C";
+        }
+        else if (hexResult[i]==13){
+            std::cout<<"D";
+        }
+        else if (hexResult[i]==14){
+            std::cout<<"E";
+        }
+        else if (hexResult[i]==15){
+            std::cout<<"F";
+        }
+        else{
+            std::cout<<hexResult[i];
+        }
+        
+    }
+}
+
+
+
+
+

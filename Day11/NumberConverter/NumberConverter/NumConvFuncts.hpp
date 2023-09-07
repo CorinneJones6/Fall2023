@@ -16,6 +16,7 @@
 int stringToInt (std::string c, int base);
 std::string intToDecimalString (int c);
 std::string intToBinaryString (int n);
-std::string intToHexadecimalString (int n); 
+std::vector<int> intToHexaString (int n);
+void printHex(std::vector<int>hexResult); 
 
 #endif /* Num Functs_hpp */
