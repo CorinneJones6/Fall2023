@@ -39,17 +39,32 @@ std::vector<playingCard> createCardDeck (){
     return V1;
 }
 
-void printDeck (std::vector<playingCard> deck){
-
+void printDeck (const std::vector<playingCard> deck){
+    
     for (playingCard p:deck){
-    if (p.rank=11) {
-        std::cout<<jackString;
+        
+        if (p.rank==11) {
+            std::cout<<jackString<<" ";
+            std::cout<<p.suit<<" "<<std::endl;
+        }
+        else if (p.rank==12){
+            std::cout<<queenString<<" ";
+            std::cout<<p.suit<<" "<<std::endl;
+        }
+        else if (p.rank==13){
+            std::cout<<kingString<<" ";
+            std::cout<<p.suit<<" "<<std::endl;
+        }
+        else{
+            std::cout<<p.rank<<" ";
+            std::cout<<p.suit<<" "<<std::endl;
+        }
     }
-    std::cout<<p.rank<<" ";
-    std::cout<<p.suit<<" "<<std::endl;
 }
     
-}
+
+    
+
 
    
 

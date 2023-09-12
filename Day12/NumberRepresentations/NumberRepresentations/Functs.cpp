@@ -10,6 +10,6 @@
 #include <fstream>
 
 bool approxEquals( double a, double b, double tolerance ){
-    return (std::abs(a - b)<tolerance);
+    return (std::abs(a + b)<tolerance);
 }
 

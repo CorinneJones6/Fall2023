@@ -76,10 +76,11 @@ void inputWordOccurrence (std::vector<std::string>inputVector, std::string lookF
 void inputWordPlace (std::vector<std::string>inputVector, std::string lookFor){
     int count=0;
     int i=0;
+    float percent =0;
     for(std::string word: inputVector) {
         count+=word.size();
         i++;
-//        percent=count/findNumbChars;
+        percent=count/inputVector.size(); 
         if (word==lookFor) {
             std::cout<<"at "<<count<<"%: "<<inputVector[i-2]<<" "<<lookFor<<" "<<inputVector[i];
             std::cout<<std::endl;

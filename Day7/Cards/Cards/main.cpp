@@ -17,6 +17,5 @@ int main(int argc, const char * argv[]) {
  
     printDeck (cardDeckAns);
 
-    
     return 0;
 }

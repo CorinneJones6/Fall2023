@@ -15,6 +15,8 @@
 int main(int argc, const char * argv[]) {
     //This is assigning a variable
     std::string fileName, stringWord, searchWord;
+    std::vector<std::string>bookVector;
+
  
 //    This is prompting the user for an input.
     std::cout<<"Please enter the file name you wish to open: ";
@@ -32,7 +34,6 @@ int main(int argc, const char * argv[]) {
     std::cout<<"Please enter a word you want to search for: ";
     std::cin>>searchWord;
     
-    std::vector<std::string>bookVector;
     
     while (inputFile >> stringWord){
         bookVector.push_back(stringWord);

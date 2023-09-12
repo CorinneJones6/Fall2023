@@ -104,7 +104,7 @@ int main(int argc, const char * argv[]) {
     bool approxEqualsAns;
   
     
-    approxEqualsAns=approxEquals (.1, .2, .3);
+    approxEqualsAns=approxEquals (.1, .2, .31);
     
     
     std::cout<<"Part 3"<<std::endl;
