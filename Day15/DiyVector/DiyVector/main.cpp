@@ -6,9 +6,21 @@
 //
 
 #include <iostream>
+#include "DiyVectorFuncts.hpp"
+#include "TestFuncts.hpp"
+
+
+void testDestructor () {
+    MyVector v2;
+    v2.pushBack(5);
+    v2.pushBack(20);
+    
+}
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    
+    TestMyVec(); 
+    
+    
     return 0;
 }
