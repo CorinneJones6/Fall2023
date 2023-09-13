@@ -12,8 +12,6 @@
 #include <iomanip>
 #include <string>
 
-
-
 int charToDigit (char c) {
     int numericValue=0;
     c = tolower(c);
