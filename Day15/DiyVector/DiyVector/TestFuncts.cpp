@@ -11,9 +11,9 @@
 #include <string>
 
 void TestMyVec(){
+    
     //This creates a vector that it will put through the tests.
     MyVector<int> v1 (10);
-    
     v1.pushBack(0);
     v1.pushBack(1);
     v1.pushBack(10);
@@ -49,8 +49,6 @@ void TestMyVec(){
     //This tests the pop back.
     assert( (v1.size()==4) || (v1.capacity()==10) || (v1.getValue(4)==0) && "Test 2 Failed");
 
-    
-
     v1.setValue(0,1);
     v1.setValue(1,2);
     v1.setValue(2,3);
@@ -77,6 +75,7 @@ void TestMyVec(){
     v5.pushBack(1.2);
     v5.pushBack(1.3);
     
+    /*This tests that MyVector works for doubles. It combines the size, capacity, and getValue.*/
     assert ( (v5.size()==3) || (v5.capacity()==8) || (v5.getValue(1)== 1.2) && "Test 6 Failed");
 
     MyVector<char> v6 (5);
@@ -86,10 +85,6 @@ void TestMyVec(){
     v6.pushBack('l');
     v6.pushBack('o');
     
+    /*This tests that MyVector works for chars. It combines the size, capacity, and getValue.*/
     assert( (v6.size()==5) || (v6.capacity()==10) || (v6.getValue(4)== 'o') && "Test 7 Failed");
-    
-
-
-    
-    
 }
