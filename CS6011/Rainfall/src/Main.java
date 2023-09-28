@@ -4,13 +4,12 @@ import java.io.FileWriter;
 import rainDataHW.rainData;
 import java.util.ArrayList;
 
-
 import static rainDataHW.rainData.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        String title = null;
+        String city = null;
         ArrayList<rainData> a = new ArrayList<rainData>();
 
 //====================READ IN FILE=====================//
@@ -23,7 +22,7 @@ splitting at a space, tab, or enter. This then stores the data in the rainData c
             String[] line = sc.nextLine().split("\\s+");
 
             if (line.length == 1) {
-                title = line[0];
+                city = line[0];
             }
             if (line.length > 2) {
                 String s1 = line[0];
@@ -35,9 +34,9 @@ splitting at a space, tab, or enter. This then stores the data in the rainData c
      
 //====================WRITE OUT FILE=====================//
             FileWriter filewrite = new FileWriter("rainfall_results.txt");
-            filewrite.write("The overall average rainfall amount in "+title+" is "+totalRainfall(a) + " inches.\n");
+            filewrite.write("The overall average rainfall amount in "+city+" is "+totalRainfall(a) + " inches.\n");
             for(int i=0; i<12; i++){
-                filewrite.write("Average rainfall for "+ title +" in "+a.get(i).getMonth() +" is "+ monthlyRainfall(a, i) + " inches.\n");
+                filewrite.write("Average rainfall for "+ city +" in "+a.get(i).getMonth() +" is "+ monthlyRainfall(a, i) + " inches.\n");
             }
             filewrite.close();
         }
