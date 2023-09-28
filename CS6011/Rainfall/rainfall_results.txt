@@ -1,0 +1,13 @@
+The overall average rainfall amount in Atlanta is 4.02 inches.
+Average rainfall for Atlanta in January is 4.3 inches.
+Average rainfall for Atlanta in February is 4.23 inches.
+Average rainfall for Atlanta in March is 4.8 inches.
+Average rainfall for Atlanta in April is 3.58 inches.
+Average rainfall for Atlanta in May is 3.59 inches.
+Average rainfall for Atlanta in June is 4.28 inches.
+Average rainfall for Atlanta in July is 4.36 inches.
+Average rainfall for Atlanta in August is 4.08 inches.
+Average rainfall for Atlanta in September is 3.8 inches.
+Average rainfall for Atlanta in October is 2.76 inches.
+Average rainfall for Atlanta in November is 3.73 inches.
+Average rainfall for Atlanta in December is 4.69 inches.
