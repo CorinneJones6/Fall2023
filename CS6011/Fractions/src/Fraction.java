@@ -27,21 +27,22 @@ public class Fraction {
     }
     //This is a constructor when values are given.
     public Fraction(long n, long d){
-    long absvaln= Math.abs(n);
-    long absvald=Math.abs(d);
-        if(n<0&&d<0) {
-            numerator_ = absvaln;
-            denominator_ = absvald;
+        if (d==0){
+            throw new ArithmeticException("division by 0 invalid");
         }
-        else if(n<0||d<0){
-            numerator_=(absvaln*(-1));
-            denominator_=absvald;
-        }
-        else{
-            numerator_=n;
-            denominator_=d;
-        }
-        reduce();
+          long absvaln = Math.abs(n);
+          long absvald = Math.abs(d);
+          if (n < 0 && d < 0) {
+              numerator_ = absvaln;
+              denominator_ = absvald;
+          } else if (n < 0 || d < 0) {
+              numerator_ = (absvaln * (-1));
+              denominator_ = absvald;
+          } else {
+              numerator_ = n;
+              denominator_ = d;
+          }
+          reduce();
     }
     public Fraction plus(Fraction rhs){
         long resultNum, resultDen;
@@ -75,14 +76,19 @@ public class Fraction {
     }
     public Fraction dividedBy (Fraction rhs){
         long resultNum, resultDen;
+        if (rhs.numerator_==0){
+            throw new ArithmeticException("division by 0 invalid");
+        }
         Fraction r=new Fraction(rhs.denominator_,rhs.numerator_);
-
         resultDen=denominator_*r.denominator_;
         resultNum=numerator_*r.numerator_;
 
         return new Fraction(resultNum, resultDen);
     }
     public Fraction reciprocal(){
+        if (numerator_==0){
+            throw new ArithmeticException("division by 0 invalid");
+        }
         Fraction r=new Fraction(denominator_, numerator_);
         return r;
     }

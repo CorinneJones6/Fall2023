@@ -6,6 +6,7 @@ class FractionTest {
 
 @Test
 public void runAllTests(){
+    tryCatch();
     testReduce();
     testPlus();
     testMinus();
@@ -16,7 +17,28 @@ public void runAllTests(){
 
 
 }
+@Test
+    void tryCatch(){
+    Fraction f1= new Fraction (0,4);
+    Fraction f2= new Fraction(1,5);
+    try {
+        Fraction f3 = new Fraction(4, 0);
+    } catch (ArithmeticException e){
+        System.out.println(e.getMessage());
+    }
+    try {
+        f1.reciprocal();
+    } catch (ArithmeticException e){
+        System.out.println(e.getMessage());
 
+    }
+    try {
+        f2.dividedBy(f1);
+    } catch (ArithmeticException e){
+        System.out.println(e.getMessage());
+    }
+
+}
 
 //This tests reduce and find GCD
     @Test
