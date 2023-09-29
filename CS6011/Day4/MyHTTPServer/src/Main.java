@@ -1,17 +1,9 @@
-import javax.imageio.stream.FileImageInputStream;
-import javax.imageio.stream.FileImageOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
-import java.io.PrintWriter;
 import java.io.*;
-
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -19,7 +11,6 @@ public class Main {
         String inputString = "";
         String[] inputArray = new String[0];
         String extension = "";
-        Path file = null;
         ArrayList<String> a1 = new ArrayList<String>();
 
 //initializes a ServerSocket
@@ -35,39 +26,51 @@ public class Main {
                 inputArray = sc.nextLine().split(" ");
                 inputString = inputArray[1];
                 System.out.println("From client: " + inputString);
+                if (inputString.equals("/")) {
+                    inputString = "/index.html";
+                }
+
+                   File file = new File("/Users/corinnejones/myGithubrepo/CS6011/Day4/MyHTTPServer/Resources" + inputString);
+                   File failFile = new File ("/Users/corinnejones/myGithubrepo/CS6011/Day4/MyHTTPServer/Resources/ErrorPage.html");
+
+
+                OutputStream outStream = client.getOutputStream();
+
+                   if (file.exists()) {
+                       int i = inputString.lastIndexOf('.');
+                       if (i > 0) {
+                           extension = inputString.substring(i + 1);
+                           System.out.println(extension);
+                       }
+
+                   FileInputStream fileStream = new FileInputStream(file);
+
+                    if (extension.equals("jpeg")) {
+                        outStream.write("http/1.1 200 Success \n".getBytes());
+                        outStream.write(("Content-type: image/jpeg" + extension + "\n").getBytes());
+                    } else if (extension.equals("pdf")) {
+                        outStream.write("http/1.1 200 Success \n".getBytes());
+                        outStream.write(("Content-type: application/pdf" + extension + "\n").getBytes());
+                    } else {
+                        outStream.write("http/1.1 200 Success \n".getBytes());
+                        outStream.write(("Content-type: text/" + extension + "\n").getBytes());
+                    }
+                    outStream.write("\n".getBytes());
+                    fileStream.transferTo(outStream);
+                    outStream.flush();
+                    outStream.close();
+                   }
+
+                    else{
+                    FileInputStream failFileStream = new FileInputStream(failFile);
+                    outStream.write("HTTP/1.1 200 OK\n".getBytes());
+                    outStream.write("Content-type: text/html\n".getBytes());
+                    outStream.write("\n".getBytes());
+                    failFileStream.transferTo(outStream);
+                    outStream.flush();
+                    outStream.close();
+                }
             }
-
-            OutputStream outStream = client.getOutputStream();
-
-                file = Paths.get("/Users/corinnejones/myGithubrepo/CS6011/Day4/MyHTTPServer/Resources" + inputString);
-
-
-                int i = inputString.lastIndexOf('.');
-                if (i > 0) {
-                    extension = inputString.substring(i + 1);
-                    System.out.println(extension);
-                }
-
-                if (extension.equals("jpeg")) {
-                    outStream.write("http/1.1 200 Success \n".getBytes());
-                    outStream.write(("Content-type: image/jpeg" + extension + "\n").getBytes());
-                    outStream.write("\n".getBytes());
-                } else if (extension.equals("pdf")) {
-                    outStream.write("http/1.1 200 Success \n".getBytes());
-                    outStream.write(("Content-type: application/pdf" + extension + "\n").getBytes());
-                    outStream.write("\n".getBytes());
-                } else {
-                    outStream.write("http/1.1 200 Success \n".getBytes());
-                    outStream.write(("Content-type: text/" + extension + "\n").getBytes());
-                    outStream.write("\n".getBytes());
-                }
-
-                byte[] fileContent = Files.readAllBytes(file);
-                outStream.write(fileContent);
-
-                outStream.flush();
-                outStream.close();
-
         }
     }
 }
