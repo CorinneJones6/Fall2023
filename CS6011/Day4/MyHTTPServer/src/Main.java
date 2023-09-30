@@ -4,6 +4,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
+import ServerClient.HTTPRequest;
+import ServerClient.HTTPResponse;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -30,13 +32,12 @@ public class Main {
                     inputString = "/index.html";
                 }
 
-                   File file = new File("/Users/corinnejones/myGithubrepo/CS6011/Day4/MyHTTPServer/Resources" + inputString);
-                   File failFile = new File ("/Users/corinnejones/myGithubrepo/CS6011/Day4/MyHTTPServer/Resources/ErrorPage.html");
-
+                   File file = new File("Resources" + inputString);
+                   File failFile = new File ("Resources/ErrorPage.html");
 
                 OutputStream outStream = client.getOutputStream();
 
-                   if (file.exists()) {
+                   try {
                        int i = inputString.lastIndexOf('.');
                        if (i > 0) {
                            extension = inputString.substring(i + 1);
@@ -61,7 +62,7 @@ public class Main {
                     outStream.close();
                    }
 
-                    else{
+                    catch(Exception e){
                     FileInputStream failFileStream = new FileInputStream(failFile);
                     outStream.write("HTTP/1.1 200 OK\n".getBytes());
                     outStream.write("Content-type: text/html\n".getBytes());
