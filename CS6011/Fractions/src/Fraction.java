@@ -1,6 +1,6 @@
 //Corinne Jones
 //Fractions
-public class Fraction {
+public class Fraction implements Comparable<Fraction> {
 //    public static void main(String[] args) {
     private long numerator_, denominator_;
 
@@ -104,6 +104,18 @@ public class Fraction {
        return n/d;
     }
 
+
+    @Override
+    public int compareTo(Fraction rhs) {
+
+        if ((this.minus(rhs)).toDouble()>=0){
+            return 1;
+        }
+        else if((this.minus(rhs)).toDouble()<=0){
+            return -1;
+        }
+        return 0;
+    }
 }
 
 

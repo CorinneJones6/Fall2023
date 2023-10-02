@@ -2,6 +2,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 class FractionTest {
 
 @Test
@@ -14,10 +17,28 @@ public void runAllTests(){
     testDividedBy();
     testReciprocal();
     testToDouble();
+    testCompareTo();
 
 
 }
-@Test
+
+    @Test
+    void testCompareTo(){
+        ArrayList<Fraction> a1=new ArrayList<Fraction>();
+
+        a1.add(new Fraction(2, 4));
+        a1.add(new Fraction (1, 4));
+        a1.add(new Fraction (3, 4));
+        a1.add(new Fraction (0, 4));
+
+        Collections.sort(a1);
+
+        for (int i=0; i<a1.size(); i++){
+            System.out.println(a1.get(i));
+        }
+    }
+
+    @Test
     void tryCatch(){
     Fraction f1= new Fraction (0,4);
     Fraction f2= new Fraction(1,5);
