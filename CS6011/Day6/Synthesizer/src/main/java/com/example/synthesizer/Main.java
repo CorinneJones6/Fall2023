@@ -17,9 +17,9 @@ public class Main {
         AudioComponent gen = new Mixer();
 
 //        Mixer mixer = new Mixer();
-        SineWave sinewave1=new SineWave(220.5);
-        SineWave sinewave2=new SineWave(138.5);
-        SineWave sinewave3 = new SineWave(164.5);
+        AudioComponent sinewave1=new SineWave(220.5);
+        AudioComponent sinewave2=new SineWave(138.5);
+        AudioComponent sinewave3 = new SineWave(164.5);
 
         gen.connectInput(sinewave1);
         gen.connectInput(sinewave2);
