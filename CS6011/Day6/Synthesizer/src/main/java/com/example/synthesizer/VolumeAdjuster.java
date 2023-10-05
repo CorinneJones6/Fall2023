@@ -30,7 +30,8 @@ public class VolumeAdjuster implements AudioComponent {
 
     @Override
     public boolean hasInput() {
-        return false;
+
+        return input_!=null;
     }
 
     @Override

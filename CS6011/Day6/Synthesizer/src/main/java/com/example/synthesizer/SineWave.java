@@ -5,7 +5,7 @@ public class SineWave implements AudioComponent {
 
     double frequency_;
     double sampleRate=44100;
-    boolean hasInput;
+    boolean hasInput=false;
 
     public SineWave(){
 
@@ -25,7 +25,6 @@ public class SineWave implements AudioComponent {
     }
     @Override
    public boolean hasInput(){
-
         return hasInput;
     }
     @Override
