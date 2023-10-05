@@ -4,6 +4,7 @@ import com.example.synthesizer.AudioClip;
 public class SineWave implements AudioComponent {
 
     double frequency_;
+    //todo: just use the samplerate from audioclip
     double sampleRate=44100;
     boolean hasInput=false;
 
@@ -18,7 +19,7 @@ public class SineWave implements AudioComponent {
         AudioClip audioclip = new AudioClip();
         int result;
         for (int i=0; i<AudioClip.TOTAL_SAMPLES; i++) {
-            result=(int) (Short.MAX_VALUE * Math.sin(2 * Math.PI * frequency_ * i / sampleRate));
+            result=(int) (Short.MAX_VALUE * Math.sin(2 * Math.PI * frequency_ * i / sampleRate)+.5);
             audioclip.setSample(i, result);
         }
         return audioclip;

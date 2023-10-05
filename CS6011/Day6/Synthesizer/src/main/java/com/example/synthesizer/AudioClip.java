@@ -7,7 +7,7 @@ public class AudioClip {
 
     static final double duration_=2.0;
     static final int rate_ = 44100;
-    public static double TOTAL_SAMPLES=duration_*rate_;
+    public static final double TOTAL_SAMPLES=duration_*rate_;
 
     byte[] data_ = new byte[(int) (rate_*duration_*2)]; // Each sample is of 2 bytes // 44100 samples per second (Data rate for CDs.)
 

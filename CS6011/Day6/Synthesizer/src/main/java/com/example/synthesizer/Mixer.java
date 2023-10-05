@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Mixer implements AudioComponent{
 
     private  ArrayList<AudioComponent> audioArray;
-    private boolean input_=false;
+
+//    private boolean input_=false;
 
    Mixer(){
        audioArray = new ArrayList<>();
@@ -19,36 +20,41 @@ public class Mixer implements AudioComponent{
 @Override
 public AudioClip getClip() {
     AudioClip result = new AudioClip();
+    ArrayList<AudioClip> audioClips = new ArrayList<>();
     //loop through array list of waves
-    for(AudioComponent component: audioArray){
-        AudioClip clip=component.getClip();
+    for(AudioComponent component: audioArray) {
+
+//        AudioClip clip = component.getClip();
+        VolumeAdjuster lowerVolume = new VolumeAdjuster(.25);
+        lowerVolume.connectInput(component);
+        audioClips.add(lowerVolume.getClip());
+    }
+
+    for(AudioClip clip: audioClips) {
         //for each component loop through the component
         for (int i = 0; i < AudioClip.TOTAL_SAMPLES; i++) {
             //Add sample to results audio-clip (to add waves you add corresponding amplitudes)
-            int Sample =(result.getSample(i) + clip.getSample(i));
+            int Sample = (result.getSample(i) + clip.getSample(i));
             // Ensure the adjustedSample value stays within the valid range (clamp the sounds)
             int max = Short.MAX_VALUE;
             int min = Short.MIN_VALUE;
-
-            // Set the adjusted sample value in the result clip
+            //TODO: put this in the audiocomponent interface OR in the set sample
             if (Sample < min) {
-                Sample=min;
-            }
-            else if (Sample > max) {
+                Sample = min;
+            } else if (Sample > max) {
                 Sample = max;
             }
             result.setSample(i, Sample);
         }
     }
+
+
     //return result;
     return result;
 }
     @Override
     public boolean hasInput() {
-       if (!audioArray.isEmpty()) {
-           return true;
-       }
-       return false;
+       return !audioArray.isEmpty();
     }
 
     @Override

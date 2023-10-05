@@ -17,28 +17,28 @@ public class Main {
         AudioComponent gen = new Mixer();
 
 //        Mixer mixer = new Mixer();
-        AudioComponent sinewave1=new SineWave(220.5);
-        AudioComponent sinewave2=new SineWave(138.5);
-        AudioComponent sinewave3 = new SineWave(164.5);
+        AudioComponent sinewave1=new SineWave(220);
+        AudioComponent sinewave2=new SineWave(440);
+//        AudioComponent sinewave3 = new SineWave(164.5);
 
         gen.connectInput(sinewave1);
         gen.connectInput(sinewave2);
-        gen.connectInput(sinewave3);
+//        gen.connectInput(sinewave3);
 
-        AudioComponent linearRamp = new LinearRamp(50, 5000);
+//        AudioComponent linearRamp = new LinearRamp(50, 5000);
 //        AudioComponent frequencyWave= new VFSineWave();
 //
 //        frequencyWave.connectInput(linearRamp);
 
 
 
-//     VolumeAdjuster changeVolume=new VolumeAdjuster(.5);
+//     VolumeAdjuster changeVolume=new VolumeAdjuster(1);
 //     changeVolume.connectInput(gen);
 
-//    AudioClip clip = gen.getClip();         // Your code
+    AudioClip clip = gen.getClip();         // Your code
 //     AudioClip clip=changeVolume.getClip();
 //        AudioClip clip=frequencyWave.getClip();
-        AudioClip clip = linearRamp.getClip();
+//        AudioClip clip = linearRamp.getClip();
 
 c.open( format16, clip.getData(), 0, clip.getData().length ); // Reads data from our byte array to play it.
 
