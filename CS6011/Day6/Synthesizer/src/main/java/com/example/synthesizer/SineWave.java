@@ -33,4 +33,7 @@ public class SineWave implements AudioComponent {
         //if (my array has input), set has input to true.
 
     }
+    public void setFrequency(int frequency){
+        frequency_=frequency;
+    }
 }
