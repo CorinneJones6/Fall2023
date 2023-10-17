@@ -25,7 +25,7 @@ public AudioClip getClip() {
     for(AudioComponent component: audioArray) {
 
 //        AudioClip clip = component.getClip();
-        VolumeAdjuster lowerVolume = new VolumeAdjuster(.25);
+        VolumeFilter lowerVolume = new VolumeFilter(.25);
         lowerVolume.connectInput(component);
         audioClips.add(lowerVolume.getClip());
     }

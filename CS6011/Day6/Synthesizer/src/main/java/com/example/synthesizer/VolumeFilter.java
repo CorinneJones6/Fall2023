@@ -1,10 +1,10 @@
 package com.example.synthesizer;
 
-public class VolumeAdjuster implements AudioComponent {
+public class VolumeFilter implements AudioComponent {
 
     double scale_;
     AudioComponent input_;
-    VolumeAdjuster(double scale){
+    VolumeFilter(double scale){
         scale_=scale;
     }
     @Override
@@ -27,13 +27,11 @@ public class VolumeAdjuster implements AudioComponent {
         }
         return result;
     }
-
     @Override
     public boolean hasInput() {
 
         return input_!=null;
     }
-
     @Override
     public void connectInput(AudioComponent input) {
         input_=input;

@@ -4,12 +4,11 @@ import com.example.synthesizer.AudioClip;
 public class SineWave implements AudioComponent {
 
     double frequency_;
-    //todo: just use the samplerate from audioclip
-    double sampleRate=44100;
+    double sampleRate=AudioClip.rate_;
     boolean hasInput=false;
 
     public SineWave(){
-
+    frequency_=200;
     }
     public SineWave(double frequency){
         frequency_=frequency;
