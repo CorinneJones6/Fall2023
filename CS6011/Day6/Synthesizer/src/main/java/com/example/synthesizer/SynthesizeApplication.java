@@ -56,6 +56,10 @@ public class SynthesizeApplication extends Application {
         Button lowPassBtn=new Button("LowPass");
         Button highPassBtn=new Button("HighPass");
 
+        //Right Panel Mixer Widget Buttons
+        Button mixerBtn=new Button("::Mixers::");
+        Button combineBtn=new Button("Mixer");
+
         // Set a common preferred width for all buttons
          double buttonWidth = 95;
          generatorBtn.setPrefWidth(buttonWidth);
@@ -70,6 +74,8 @@ public class SynthesizeApplication extends Application {
          lowPassBtn.setPrefWidth(buttonWidth);
          highPassBtn.setPrefWidth(buttonWidth);
 
+         mixerBtn.setPrefWidth(buttonWidth);
+         combineBtn.setPrefWidth(buttonWidth);
 
         //Generator Widget Actions
         sinewaveBtn.setOnAction(this::createSineWaveComponent);
@@ -81,6 +87,8 @@ public class SynthesizeApplication extends Application {
         reverbBtn.setOnAction(this::createReverbComponent);
         lowPassBtn.setOnAction(this::createLowPassComponent);
         highPassBtn.setOnAction(this::createHighPassComponent);
+        //Mixer Widget Actions
+        combineBtn.setOnAction(this::createMixerComponent);
 
         rightpanel.getChildren().add(generatorBtn);
         rightpanel.getChildren().add(sinewaveBtn);
@@ -92,6 +100,8 @@ public class SynthesizeApplication extends Application {
         rightpanel.getChildren().add(reverbBtn);
         rightpanel.getChildren().add(lowPassBtn);
         rightpanel.getChildren().add(highPassBtn);
+        rightpanel.getChildren().add(mixerBtn);
+        rightpanel.getChildren().add(combineBtn);
 
         //Set Style for the labels
         generatorBtn.setStyle("-fx-background-color: #47a8a9");
@@ -105,6 +115,9 @@ public class SynthesizeApplication extends Application {
         reverbBtn.setStyle("-fx-background-color: #47a8a9");
         lowPassBtn.setStyle("-fx-background-color: #47a8a9");
         highPassBtn.setStyle("-fx-background-color: #47a8a9");
+
+        mixerBtn.setStyle("-fx-background-color: #47a8a9");
+        combineBtn.setStyle("-fx-background-color: #47a8a9");
 
         //right panel setting the style
         rightpanel.setStyle("-fx-font-family: Georgia");
@@ -144,6 +157,7 @@ public class SynthesizeApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
     private void playAudio(ActionEvent e) {
         try {
             Clip c = AudioSystem.getClip();
@@ -214,6 +228,14 @@ public class SynthesizeApplication extends Application {
     private void createHighPassComponent(ActionEvent e){
         AudioComponent highPassAdjuster = new HighPassFilter();
         HighPassFilterWidget acw = new HighPassFilterWidget(highPassAdjuster, mainCenter);
+        acw.createView();
+        mainCenter.getChildren().add(acw);
+        widgets_.add(acw);
+    }
+
+    private void createMixerComponent(ActionEvent actionEvent) {
+        AudioComponent combineNoise=new Mixer();
+        MixerWidget acw=new MixerWidget(combineNoise, mainCenter);
         acw.createView();
         mainCenter.getChildren().add(acw);
         widgets_.add(acw);
