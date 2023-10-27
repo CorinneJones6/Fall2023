@@ -1,26 +1,25 @@
 package ServerClient;
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-//Corinne Jones
-//HTTP Refactoring Assignment
 
 public class HTTPRequest {
 
-   private String verb_;
-   private String parameter_;
-   private String header_;
-   private String fileType_;
-   private final InputStream inputStream_;
+    private String verb_;
+    private String parameter_;
+    private String header_;
+    private String fileType_;
+    private final InputStream inputStream_;
 
-   private String fileName;
+    private String fileName;
 
     Map headers = new HashMap<String,String>();
 
-   //the initial constructor which requires a socket, finds the socket input stream, and assigns that as a variable
+    //the initial constructor which requires a socket, finds the socket input stream, and assigns that as a variable
     public HTTPRequest(Socket socket) throws IOException {
         verb_=null;
         parameter_=null;
@@ -72,7 +71,7 @@ public class HTTPRequest {
             boolean done = false;
             while( !done ) {
 
-               String requestLine = sc.nextLine();
+                String requestLine = sc.nextLine();
                 System.out.println(requestLine);
                 if( requestLine.length() != 0 ) {
                     String[] pieces = requestLine.split(": ");
@@ -90,6 +89,7 @@ public class HTTPRequest {
     }
 
     public Boolean isWebSocket(){
+
         boolean isKeyPresent = headers.containsKey("Sec-WebSocket-Key");
         return isKeyPresent;
     }
@@ -97,4 +97,8 @@ public class HTTPRequest {
     {
         return (String)headers.get("Sec-WebSocket-Key");
     }
+
 }
+
+
+

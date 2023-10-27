@@ -38,7 +38,9 @@ let ws = new WebSocket('ws://localhost:8080');
 
 //---handling the websocket---//
 ws.onopen=handleOpenCB;
-ws.onmessage=handleMsgCB;
+ws.onmessage = function(e) {
+    handleMsgCB(e);
+};
 ws.onclose=handleCloseCB;
 ws.onerror=handleErrorCB;
 
@@ -46,7 +48,7 @@ ws.onerror=handleErrorCB;
 function handleOpenCB(){
     wsOpen=true;
     console.log("Websocket Connection Opened");
-    alert("Websocket Connection Opened");
+    // alert("Websocket Connection Opened");
 }
 
 function handleMsgCB(e){
@@ -69,22 +71,27 @@ function handleMsgCB(e){
 
     }
 
-    if (type==="join"){
+    if (type === "join"){
+        let chatParticipants = document.createElement("p");
+        chatParticipants.textContent = user;
+        chatParticipants.id = user;
 
         let outText = document.createTextNode(user + " joined " + room);
-        let chatParticipants=document.createTextNode(user + " is in this chat       "+" ");
 
         leftDiv.appendChild(lineBreak);
         leftDiv.appendChild(chatParticipants);
-
         rightDiv.appendChild(lineBreak);
         rightDiv.appendChild(outText);
-
     }
 
-    if(type==="leave"){
-
+    if (type === "leave"){
         let outText = document.createTextNode(user + " left " + room + ".");
+
+        // Remove the element with the specified id
+        const chatParticipant = document.getElementById(user);
+        if (chatParticipant) {
+            chatParticipant.parentNode.removeChild(chatParticipant);
+        }
 
         rightDiv.appendChild(lineBreak);
         rightDiv.appendChild(outText);
@@ -115,7 +122,8 @@ function handleEnterChat (event){
         console.log("room is: " + room);
 
         if(name!=="" && room!=="" && !inChatRoom){
-            ws.send("join " + name + " " + room);
+            let message = {"type":"join", "user":nameTxt.value, "room":roomTxt.value}
+            ws.send(JSON.stringify(message));
             inChatRoom = true;
         }
 
@@ -138,7 +146,8 @@ function handleSendMessage(event){
         console.log("message is: "+ message);
 
         if(message!==""){
-            ws.send("message " + message);
+            let message = {"type":"message", "user":nameTxt.value, "room":roomTxt.value, "message":messageTxt.value}
+            ws.send(JSON.stringify(message));
             messageTxt.value = "";
         }
         else{
@@ -155,8 +164,10 @@ function handleleaveChat(event){
 
         document.getElementById("leftDiv").innerHTML = "";
         document.getElementById("rightDiv").innerHTML = "";
+
         inChatRoom=false;
 
-        ws.send("leave");
+        let message = {"type":"leave", "user":nameTxt.value, "room":roomTxt.value}
+        ws.send(JSON.stringify(message));
     }
 }

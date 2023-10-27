@@ -1,27 +1,25 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.io.*;
-import ServerClient.HTTPRequest;
-import ServerClient.HTTPResponse;
+import ServerClient.ChatRoom;
 import ServerClient.MyRunnable;
-
-//Corinne Jones
-//HTTP Refactoring Assignment
 
 public class Main {
     public static void main(String[] args) throws IOException {
-    //initializes a ServerSocket
+
+        //create the serversocket that waits for a client request at a certain port
         ServerSocket server = new ServerSocket(8080);
+        //create a chatroom
+        ChatRoom chatRoom = new ChatRoom();
 
-    //Run through this while loop forever, use accept() to wait for and accept incoming client connections
         while (true) {
+            //wait "forever" for the client to accept
             Socket client = server.accept();
-
-            Thread thread = new Thread(new MyRunnable(client));
-
+            //create a new thread for the client request, pass it the client and chatroom
+            Thread thread = new Thread(new MyRunnable(client, chatRoom));
+            //start the thread
             thread.start();
 
-            }
         }
     }
+}
