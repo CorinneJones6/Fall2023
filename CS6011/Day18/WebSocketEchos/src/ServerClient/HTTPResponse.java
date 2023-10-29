@@ -1,11 +1,9 @@
 package ServerClient;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.util.Base64;
-import java.util.Scanner;
 
 public class HTTPResponse {
 
@@ -43,7 +41,7 @@ public class HTTPResponse {
         outStream.flush();
         outStream.close();
     }
-    public void sendWebSocketResponse(Socket client,String key) throws IOException {
+    public void sendWebSockHandshake(Socket client, String key) throws IOException {
         OutputStream outStream = client.getOutputStream();
 
         // Compute the Sec-WebSocket-Accept response for the key
@@ -68,7 +66,7 @@ public class HTTPResponse {
 
     //sendFailResponse requires a socket and sends the fail html file to the client
     public void sendFailResponse(Socket client) throws IOException {
-        File failFile = new File ("Resources/failMessage.html");
+        File failFile = new File ("Resources/ErrorPage.html");
         OutputStream outStream = client.getOutputStream();
         FileInputStream failFileStream = new FileInputStream(failFile);
 

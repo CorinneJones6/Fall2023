@@ -3,20 +3,25 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
-public class MyRunnable implements Runnable{
+public class MyRunnable implements Runnable {
 
     Socket client_;
-    ChatRoom chatRoom_;
-    public MyRunnable(Socket client, ChatRoom chatRoom){
-        client_=client;
-        chatRoom_ = chatRoom;
-        chatRoom.addClient(this);
+    private static String username_;
+    private static String roomName_;
+    private static String message_;
+    RoomManager roomManager_;
+
+    public MyRunnable(Socket client) {
+        client_ = client;
+        username_=null;
+        roomName_=null;
+        message_=null;
     }
 
-
-    private String handleWebSocketMessage() throws IOException {
+    private String decodeMessage() throws IOException {
 
         Boolean fin_;
+        int opcode_;
         Boolean mask_;
         long payloadLen_;
         byte[] maskBytes = new byte[0];
@@ -24,51 +29,106 @@ public class MyRunnable implements Runnable{
 
         DataInputStream in = new DataInputStream(client_.getInputStream());
 
-        while (true) {
-
-            System.out.println("handling incoming message for: " + client_ );
+            System.out.println("handling incoming message for: " + client_);
 
             byte[] input = in.readNBytes(2);
 
-            fin_=(input[0]&128)>0;
+            fin_ = (input[0] & 0x80) > 0;
 
-            mask_=(input[0]&0x80)>0;
+            opcode_ = (input[0] & 0x0F);
 
-            payloadLen_=(input[1]&0x7f);
+            mask_ = (input[1] & 0x80) > 0;
 
-            if (payloadLen_==126){
+            payloadLen_ = (input[1] & 0x7f);
+
+            if (payloadLen_ == 126) {
                 payloadLen_ = in.readShort();
-            }
-            else if (payloadLen_==127) {
-                payloadLen_=in.readLong();
-            }
-
-            System.out.println("Masked: "+ mask_+" Length: "+payloadLen_);
-
-            if(mask_){
-                maskBytes=in.readNBytes(4);
+            } else if (payloadLen_ == 127) {
+                payloadLen_ = in.readLong();
             }
 
-            byte[] payloadArr=in.readNBytes((int) payloadLen_);
+            System.out.println("Masked: " + mask_ + " Length: " + payloadLen_);
+
+            if (mask_) {
+                maskBytes = in.readNBytes(4);
+            }
+
+            byte[] payloadArr = in.readNBytes((int) payloadLen_);
 
             if (mask_) {
                 for (int i = 0; i < payloadArr.length; i++) {
                     payloadArr[i] = (byte) (payloadArr[i] ^ maskBytes[i % 4]);
                 }
-                message=new String (payloadArr, StandardCharsets.UTF_8);
+                message = new String(payloadArr, StandardCharsets.UTF_8);
                 System.out.println("MESSAGE: " + message + "---------------------------------------------");
+            } else {
+                message = new String(payloadArr, StandardCharsets.UTF_8);
             }
-            else{
-                message=new String(payloadArr, StandardCharsets.UTF_8);
-            }
+            return message;
+    }
 
-           return message;
-//            System.out.println(message);
+    public void encodeMessage(String message) {
+        try {
+            DataOutputStream dataOut = new DataOutputStream(client_.getOutputStream());
+            byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
 
-//            sendMessage(message);
+            // Construct a WebSocket text frame
+            byte[] frame = new byte[messageBytes.length + 2];
+            frame[0] = (byte) 0x81;  // Text frame opcode
+            frame[1] = (byte) messageBytes.length;  // Length of the message
 
-            }
+            System.arraycopy(messageBytes, 0, frame, 2, messageBytes.length);
+
+            dataOut.write(frame);
+            dataOut.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    private void parseMessType(String message) {
+       String cmd_;
+       RoomManager rm = new RoomManager();
+       String[] messArr = message.split(":");
+       cmd_ = messArr[0];
+        username_=messArr[1];
+        roomName_=messArr[2];
+       if(cmd_.equals("join")){
+           rm.joinRoom(this);
+       }
+       if (cmd_.equals("leave")){
+           rm.leaveRoom(this);
+        }
+      if (cmd_.equals("message")){
+          message_=messArr[3];
+            rm.sendMess(message, this);
+        }
+    }
+
+    public String getUsername_(){
+        return username_;
+    }
+    public String getRoomName_(){
+        return roomName_;
+    }
+    public String getMessage_(){
+        return message_;
+    }
+
+    public void sendMessage(String msg){
+//        encodeMessage(msg);
+        //send the message
+    }
+
+    public static String makeJoinMsg(String room, String name){
+        return "{ \"type\": \"join\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }";
+    }
+    public static String makeMsgMsg(String room, String name, String message) {
+        return "{ \"type\": \"message\", \"user\": \"" + roomName_ + "\", \"room\": \"" + username_ + "\", \"message\": \"" + message + "\" }";
+    }
+    public static String makeLeaveMsg(String room, String name) {
+        return "{ \"type\": \"leave\", \"room\": \"" + roomName_ + "\", \"user\": \"" + username_ + "\" }";
+    }
 
     @Override
     public void run() {
@@ -83,18 +143,23 @@ public class MyRunnable implements Runnable{
         }
         try {
             //calls the parse method with the request object
-            if( !request.parse() ) {
+            if (!request.parse()) {
                 System.out.println("bad req");
             }
 
-            if(request.isWebSocket()){
-                response.sendWebSocketResponse(client_,request.getWebSocketKey());
-                while(true){
-                    String msg=handleWebSocketMessage();
-                    handleOutgoingWebSocketMessages(msg);
+            if (request.isWebSocket()) {
+                response.sendWebSockHandshake(client_, request.getWebSocketKey());
+                while (true) {
+
+                    //this decodes the packet after the handshake was completed
+                    String msg = decodeMessage();
+
+                    parseMessType(msg);
+
+                    System.out.println("While true loop: " + msg);
+//                    encodeMessage(msg);
                 }
-            }
-            else {
+            } else {
 
                 //creates the file that is required to send into the response.sendResponse
                 File file = response.createFile(request.getParameter());
@@ -104,8 +169,7 @@ public class MyRunnable implements Runnable{
                 client_.close();
 
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             //if there are any errors above, the error page is sent to site to prevent crashing
             try {
                 response.sendFailResponse(client_);
@@ -113,75 +177,12 @@ public class MyRunnable implements Runnable{
                 throw new RuntimeException(ex);
             }
         }
-
     }
-
-    void handleOutgoingWebSocketMessages(String message) throws IOException {
-        OutputStream outputStream = client_.getOutputStream();
-        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-
-        // Convert the message to bytes
-        String responseMessage = message;
-
-        byte[] responseBytes = responseMessage.getBytes(StandardCharsets.UTF_8);
-
-        // Write the message length as a 2-byte value
-        dataOutputStream.writeByte(0x81); // FIN bit set, opcode for text frame
-        if (responseBytes.length < 126) {
-            //Put actual length B1
-            dataOutputStream.writeByte(responseBytes.length);
-        }
-        //If larger than 125, then needs to send the data len over B2-B3 (2 bytes, power 16 bits)
-        else if(responseBytes.length< Math.pow(2,16)){
-            //Put 126 in B1 to let it know to use the next two bytes
-            dataOutputStream.write(126);
-            //Write to next two bytes
-            dataOutputStream.writeShort(responseBytes.length);
-        }
-        else{
-            //Else largest size, send message size as 127 in B1
-            dataOutputStream.write(127);
-            //Write to next B2-B9 btyes
-            dataOutputStream.writeLong(responseBytes.length);
-        }
-
-        // Write the message bytes
-        dataOutputStream.write(responseBytes);
-
-        // Flush the output stream to ensure the message is sent
-        dataOutputStream.flush();
-
-    }
-
-    public void sendMessage(String message) {
-        try {
-            OutputStream outStream = client_.getOutputStream();
-            DataOutputStream dataOut =new DataOutputStream(outStream);
-            byte[] messageBytes = message.getBytes(StandardCharsets.UTF_8);
-
-            // Construct a WebSocket text frame
-            byte[] frame = new byte[messageBytes.length + 2];
-            frame[0] = (byte) 0x81;  // Text frame opcode
-            frame[1] = (byte) messageBytes.length;  // Length of the message
-            System.arraycopy(messageBytes, 0, frame, 2, messageBytes.length);
-
-            dataOut.write(frame);
-            dataOut.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    public static String makeJoinMsg(String room, String name){
-//        return new String("{ \"type\": \"join\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }");
-//    }
-    //    public static String makeMsgMsg(String room, String name, String message) {
-//        return new String("{ \"type\": \"message\", \"user\": \"" + room + "\", \"room\": \"" + name + "\", \"message\": \"" + message + "\" }");
-//    }
-//    public static String makeLeaveMsg(String room, String name) {
-//        return new String("{ \"type\": \"leave\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }");
-//    }
 
 }
+
+
+
+
 
 

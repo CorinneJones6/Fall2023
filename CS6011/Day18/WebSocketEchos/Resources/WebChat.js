@@ -64,7 +64,7 @@ function handleMsgCB(e){
     console.log("message type: " + type);
 
     if(type==="message"){
-        let outText=document.createTextNode(user + ": " + message)
+            let outText=document.createTextNode(user + ": " + message)
 
         rightDiv.appendChild(lineBreak);
         rightDiv.appendChild(outText);
@@ -115,15 +115,12 @@ function handleErrorCB(errorMessage){
 function handleEnterChat (event){
 
     if (event.key === "Enter" || event.type === "click"){
-        let name=nameTxt.value.toLowerCase();
-        let room=roomTxt.value.toLowerCase();
 
-        console.log("name is: " + name);
-        console.log("room is: " + room);
+        console.log("name is: " + getName());
+        console.log("room is: " + getRoom());
 
-        if(name!=="" && room!=="" && !inChatRoom){
-            let message = {"type":"join", "user":nameTxt.value, "room":roomTxt.value}
-            ws.send(JSON.stringify(message));
+        if(getName()!=="" && getRoom()!=="" && !inChatRoom){
+            ws.send("join:" + getName() + ":" + getRoom());
             inChatRoom = true;
         }
 
@@ -139,15 +136,23 @@ function handleEnterChat (event){
     }
 }
 
+function getName(){
+    return nameTxt.value.toLowerCase();
+}
+
+function getRoom(){
+    return roomTxt.value.toLowerCase();
+}
+
 function handleSendMessage(event){
 
     if (event.key === "Enter" || event.type === "click"){
         let message=messageTxt.value;
+
         console.log("message is: "+ message);
 
         if(message!==""){
-            let message = {"type":"message", "user":nameTxt.value, "room":roomTxt.value, "message":messageTxt.value}
-            ws.send(JSON.stringify(message));
+            ws.send("message:" + getName() + ":" + getRoom() + ":" + message);
             messageTxt.value = "";
         }
         else{
@@ -167,7 +172,6 @@ function handleleaveChat(event){
 
         inChatRoom=false;
 
-        let message = {"type":"leave", "user":nameTxt.value, "room":roomTxt.value}
-        ws.send(JSON.stringify(message));
+        ws.send("leave:" + getName() + ":" + getRoom());
     }
 }
