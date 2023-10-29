@@ -5,12 +5,15 @@ import java.util.ArrayList;
 
 import ServerClient.ChatRoom;
 import ServerClient.MyRunnable;
+import ServerClient.RoomManager;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
         // Create an ArrayList to store MyRunnable objects
         ArrayList<MyRunnable> runnArr = new ArrayList<>();
+
+        RoomManager roomManager_=new RoomManager();
 
         // Create the ServerSocket that waits for a client request at a certain port (8080)
         ServerSocket server = new ServerSocket(8080);
@@ -19,7 +22,7 @@ public class Main {
         while (true) {
             Socket client = server.accept();
 
-            Thread thread = new Thread(new MyRunnable(client));
+            Thread thread = new Thread(new MyRunnable(client, roomManager_));
 
             thread.start();
 //            // Wait for a client to connect

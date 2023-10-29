@@ -9,13 +9,15 @@ public class MyRunnable implements Runnable {
     private static String username_;
     private static String roomName_;
     private static String message_;
-    RoomManager roomManager_;
 
-    public MyRunnable(Socket client) {
+    RoomManager rm_;
+
+    public MyRunnable(Socket client, RoomManager rm) {
         client_ = client;
         username_=null;
         roomName_=null;
         message_=null;
+        rm_=rm;
     }
 
     private String decodeMessage() throws IOException {
@@ -88,20 +90,19 @@ public class MyRunnable implements Runnable {
 
     private void parseMessType(String message) {
        String cmd_;
-       RoomManager rm = new RoomManager();
        String[] messArr = message.split(":");
        cmd_ = messArr[0];
         username_=messArr[1];
         roomName_=messArr[2];
        if(cmd_.equals("join")){
-           rm.joinRoom(this);
+           rm_.joinRoom(this);
        }
        if (cmd_.equals("leave")){
-           rm.leaveRoom(this);
+           rm_.leaveRoom(this);
         }
       if (cmd_.equals("message")){
           message_=messArr[3];
-            rm.sendMess(message, this);
+            rm_.sendMess(message_, this);
         }
     }
 
@@ -124,10 +125,10 @@ public class MyRunnable implements Runnable {
         return "{ \"type\": \"join\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }";
     }
     public static String makeMsgMsg(String room, String name, String message) {
-        return "{ \"type\": \"message\", \"user\": \"" + roomName_ + "\", \"room\": \"" + username_ + "\", \"message\": \"" + message + "\" }";
+        return "{ \"type\": \"message\", \"user\": \"" + room + "\", \"room\": \"" + name + "\", \"message\": \"" + message + "\" }";
     }
     public static String makeLeaveMsg(String room, String name) {
-        return "{ \"type\": \"leave\", \"room\": \"" + roomName_ + "\", \"user\": \"" + username_ + "\" }";
+        return "{ \"type\": \"leave\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }";
     }
 
     @Override
