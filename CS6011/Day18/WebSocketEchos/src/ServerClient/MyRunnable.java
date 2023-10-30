@@ -5,11 +5,11 @@ import java.nio.charset.StandardCharsets;
 
 public class MyRunnable implements Runnable {
 
-    Socket client_;
+    private final Socket client_;
+    private final RoomManager rm_;
     private String username_;
-    public String roomName_;
-    public String message_;
-    RoomManager rm_;
+    private String roomName_;
+    private String message_;
 
     public MyRunnable(Socket client, RoomManager rm) {
         client_ = client;
@@ -129,19 +129,21 @@ public class MyRunnable implements Runnable {
     public void run() {
         //Create a response object
         HTTPResponse response = new HTTPResponse();
-        //Create a request object which requires a ServerSocket to initialize
+        //Create a request object
         HTTPRequest request = null;
         try {
+            //Pass the client socket through for the request
             request = new HTTPRequest(client_);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         try {
-            //calls the parse method with the request object
+            //Calls the parse method with the request object, and if it can't parse then says bed request
+            //This was mostly used in testing when at one point it wasn't working
             if (!request.parse()) {
                 System.out.println("bad req");
             }
-
+            //If the request is a Websocket, then it enters this loop
             if (request.isWebSocket()) {
                 response.sendWebSockHandshake(client_, request.getWebSocketKey());
                 String endMessage = new String(new byte[]{3,-23});

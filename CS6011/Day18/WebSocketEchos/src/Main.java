@@ -14,7 +14,7 @@ public class Main {
         ArrayList<MyRunnable> runnArr = new ArrayList<>();
 
         //The RoomManager, which manages the rooms, is owned by Main
-        RoomManager roomManager_=new RoomManager();
+        RoomManager roomManager=new RoomManager();
 
         // Create the ServerSocket that waits for a client request at a certain port (8080)
         ServerSocket server = new ServerSocket(8080);
@@ -27,8 +27,8 @@ public class Main {
 
             // Create a new Thread to handle the client connection using MyRunnable
             // MyRunnable represents the logic for processing client interactions
-            // It's passed the client Socket and a room manager for handling room-related tasks
-            Thread thread = new Thread(new MyRunnable(client, roomManager_));
+            // It's passed the client Socket and a RoomManager for handling room-related tasks
+            Thread thread = new Thread(new MyRunnable(client, roomManager));
 
             // Start the new thread to run the MyRunnable logic for this client
             thread.start();

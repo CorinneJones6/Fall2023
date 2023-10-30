@@ -88,9 +88,11 @@ public class HTTPRequest {
         return true;
     }
 
+    //Check if a request is a WebSocket request
     public Boolean isWebSocket(){
-
+        //boolean checks for if the WebSocket key is present
         boolean isKeyPresent = headers.containsKey("Sec-WebSocket-Key");
+        //returns the boolean
         return isKeyPresent;
     }
     public String getWebSocketKey()
