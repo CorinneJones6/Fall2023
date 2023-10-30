@@ -6,10 +6,9 @@ import java.nio.charset.StandardCharsets;
 public class MyRunnable implements Runnable {
 
     Socket client_;
-    private static String username_;
-    private static String roomName_;
-    private static String message_;
-
+    private String username_;
+    public String roomName_;
+    public String message_;
     RoomManager rm_;
 
     public MyRunnable(Socket client, RoomManager rm) {
@@ -116,16 +115,11 @@ public class MyRunnable implements Runnable {
         return message_;
     }
 
-    public void sendMessage(String msg){
-//        encodeMessage(msg);
-        //send the message
-    }
-
     public static String makeJoinMsg(String room, String name){
         return "{ \"type\": \"join\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }";
     }
     public static String makeMsgMsg(String room, String name, String message) {
-        return "{ \"type\": \"message\", \"user\": \"" + room + "\", \"room\": \"" + name + "\", \"message\": \"" + message + "\" }";
+        return "{ \"type\": \"message\", \"user\": \"" + name + "\", \"room\": \"" + room + "\", \"message\": \"" + message + "\" }";
     }
     public static String makeLeaveMsg(String room, String name) {
         return "{ \"type\": \"leave\", \"room\": \"" + room + "\", \"user\": \"" + name + "\" }";
@@ -150,17 +144,29 @@ public class MyRunnable implements Runnable {
 
             if (request.isWebSocket()) {
                 response.sendWebSockHandshake(client_, request.getWebSocketKey());
-                while (true) {
+                String endMessage = new String(new byte[]{3,-23});
+                boolean done = false;
+                while (!done) {
 
                     //this decodes the packet after the handshake was completed
                     String msg = decodeMessage();
 
-                    parseMessType(msg);
+                    if( msg.equals(endMessage)){
+                        System.out.println("closing socket");
+                        done = true;
 
-                    System.out.println("While true loop: " + msg);
-//                    encodeMessage(msg);
+                        //This leave room does the wrong name?
+                        rm_.leaveRoom(this);
+
+                        client_.close();
+                    }
+                    else{
+                        parseMessType(msg);
+                    }
+
                 }
-            } else {
+            }
+            else {
 
                 //creates the file that is required to send into the response.sendResponse
                 File file = response.createFile(request.getParameter());

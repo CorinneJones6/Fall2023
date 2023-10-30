@@ -64,9 +64,17 @@ function handleMsgCB(e){
     console.log("message type: " + type);
 
     if(type==="message"){
-            let outText=document.createTextNode(user + ": " + message)
+        const timestamp=getCurrentTimestamp();
+
+        let timeText = document.createElement('span');
+        timeText.textContent = `[${timestamp}] `;
+        timeText.classList.add('timestamp');
+
+        let outText=document.createTextNode(user + ": " + message)
+
 
         rightDiv.appendChild(lineBreak);
+        rightDiv.appendChild(timeText);
         rightDiv.appendChild(outText);
 
     }
@@ -174,4 +182,12 @@ function handleleaveChat(event){
 
         ws.send("leave:" + getName() + ":" + getRoom());
     }
+}
+
+function getCurrentTimestamp() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
 }

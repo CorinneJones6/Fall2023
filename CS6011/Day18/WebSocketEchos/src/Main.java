@@ -13,6 +13,7 @@ public class Main {
         // Create an ArrayList to store MyRunnable objects
         ArrayList<MyRunnable> runnArr = new ArrayList<>();
 
+        //The RoomManager, which manages the rooms, is owned by Main
         RoomManager roomManager_=new RoomManager();
 
         // Create the ServerSocket that waits for a client request at a certain port (8080)
@@ -20,26 +21,17 @@ public class Main {
 
         // Continuously wait for client connections
         while (true) {
+
+            // Accept a new client connection and create a Socket instance for communication
             Socket client = server.accept();
 
+            // Create a new Thread to handle the client connection using MyRunnable
+            // MyRunnable represents the logic for processing client interactions
+            // It's passed the client Socket and a room manager for handling room-related tasks
             Thread thread = new Thread(new MyRunnable(client, roomManager_));
 
+            // Start the new thread to run the MyRunnable logic for this client
             thread.start();
-//            // Wait for a client to connect
-//            // Accept the client connection and create a socket for communication
-//            Socket client = server.accept();
-//
-//            // Create a new MyRunnable instance, passing the client socket
-//            MyRunnable myRunnable=new MyRunnable(client);
-//
-//            // Add the MyRunnable instance to the ArrayList for later reference
-//            runnArr.add(myRunnable);
-//
-//            // Create a new thread, passing the MyRunnable instance
-//            Thread thread = new Thread(myRunnable);
-//
-//            // Start the thread to handle the client request concurrently
-//            thread.start();
 
         }
     }
