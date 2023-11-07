@@ -89,7 +89,7 @@ public class GrayscaleImage {
      */
     public double getPixel (int x, int y){
         // Check if the x or y coordinate is less than 0, throw an exception if so
-        if(x<0||y<0){
+        if(x<0||y<0||y >= imageData.length || x >= imageData[0].length){
             throw new IllegalArgumentException();
         }
         // Return the pixel value from the imageData array at the specified (y, x) coordinates
@@ -120,7 +120,7 @@ public class GrayscaleImage {
         for(var row=0; row < imageData.length; row++) {
             for(var col=0; col<imageData[0].length; col++){
                 // Compare pixel values at the same position in both images
-                if(this.getPixel(row, col)!=otherImage.getPixel(row, col)){
+                if(this.getPixel(col, row)!=otherImage.getPixel(col, row)){
                     // If a mismatch is found, the images are not equal, so return false
                     return false;
                 }
@@ -177,17 +177,19 @@ public class GrayscaleImage {
         // Calculate the scaling factor for normalization
         double scale =127/avgBright;
 
+        GrayscaleImage newImage=new GrayscaleImage(this.imageData);
+
         // Iterate through the rows and columns of the image data for normalization
         for(var row=0; row < imageData.length; row++) {
             for(var col=0; col<imageData[0].length; col++) {
                 // Calculate the new pixel value by scaling the original pixel value
-                double newPixel=(this.getPixel(row, col)*scale);
+                double newPixel=(this.getPixel(col, row)*scale);
                 // Update the pixel value in the original image with the new normalized value
-                this.setPixel(row, col, newPixel);
+                newImage.setPixel(col, row, newPixel);
             }
         }
         // Return the modified original image, which is now normalized
-        return this;
+        return newImage;
     }
 
 
@@ -203,12 +205,12 @@ public class GrayscaleImage {
         //Iterate through the rows and columns of the original image for mirroring
         for (var row = 0; row < imageData.length; row++) {
             for (var col = 0; col < imageData[0].length; col++) {
-                //Set te pixel value in the mirrored image by swaping the columns across the y-axis
-                //The new column index is caluclated as the difference between the last column index and the current column
+                //Set the pixel value in the mirrored image by swapping the columns across the y-axis
+                //The new column index is calculated as the difference between the last column index and the current column
                 mirroredImage.setPixel(col, row, imageData[row][imageData[0].length - 1 - col]);
             }
         }
-        //Return the new GrayscaleImage, which is now the mirrored version of the oringal image
+        //Return the new GrayscaleImage, which is now the mirrored version of the original image
         return mirroredImage;
     }
 
@@ -226,19 +228,19 @@ public class GrayscaleImage {
      */
     public GrayscaleImage cropped(int startRow, int startCol, int width, int height){
         // Check if the specified rectangle is outside the bounds of the original image and throw an exception if necessary
-        if (startRow < 0 || startCol < 0 || startRow + height > this.imageData.length || startCol + width > this.imageData[0].length) {
+        if (startRow < 0 || startCol < 0 || startRow + height > this.imageData.length || startCol + width > this.imageData[0].length||width<0||height<0) {
             throw new IllegalArgumentException("The specified rectangle is outside the bounds of the original image.");
         }
         // Create a new GrayscaleImage to store the cropped image with the specified dimensions (width and height)
-        GrayscaleImage croppedImage = new GrayscaleImage(new double [width][height]);
+        GrayscaleImage croppedImage = new GrayscaleImage(new double [height][width]);
 
         // Iterate through the specified rectangular region in the original image for cropping
-        for (int row = startRow; row < startRow+height; row++) {
-            for (int col = startCol; col < startCol+width; col++) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < width; col++) {
                 // Get the pixel value from the original image at the appropriate position
-                double pixel = this.getPixel(row, col);
+                double pixel = this.getPixel(col+startCol, row+startRow);
                 // Set the pixel value in the cropped image
-                croppedImage.setPixel(row-startRow, col-startCol, pixel);
+                croppedImage.setPixel(col, row, pixel);
             }
         }
         // Return the new GrayscaleImage, which is the cropped version of the original image

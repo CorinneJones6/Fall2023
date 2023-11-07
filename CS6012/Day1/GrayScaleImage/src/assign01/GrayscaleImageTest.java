@@ -13,6 +13,7 @@ class GrayscaleImageTest {
     private GrayscaleImage allBlackImage; // An all-black image
     private GrayscaleImage allWhiteImage; // An all-white image
     private GrayscaleImage singlePixel; //A striped square to test mirroring
+    private GrayscaleImage mirroredImage;
 
 
     @BeforeEach
@@ -27,6 +28,7 @@ class GrayscaleImageTest {
         allBlackImage = new GrayscaleImage(new double[5][5]); // An all-black image
         allWhiteImage = new GrayscaleImage(new double[5][5]); // An all-white image
         singlePixel = new GrayscaleImage(new double [][]{{255}}); //Should be the same around y axis when mirrored
+        mirroredImage=new GrayscaleImage(new double[][]{{255,0,255}, {255,0,255}});
 
         // Initialize the all-white image with white pixels (255) and the all-black image with black pixels (0)
         for (int row = 0; row < 5; row++) {
@@ -64,6 +66,7 @@ class GrayscaleImageTest {
     @Test
     void testNotEqual(){
         //Originally this crashed since wasn't checking for the same length
+        //would need to make true/false
         assertNotEquals(veryLarge, smallSquare);
         assertNotEquals(allBlackImage, allWhiteImage);
     }
@@ -127,6 +130,7 @@ class GrayscaleImageTest {
     void mirrorablePicture(){
         assertEquals(singlePixel.mirrored(), singlePixel);
         assertNotEquals(smallSquare.mirrored(), smallSquare);
+        assertEquals(mirroredImage.mirrored(), mirroredImage);
     }
 
     @Test
