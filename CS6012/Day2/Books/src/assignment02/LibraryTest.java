@@ -50,7 +50,24 @@ class LibraryTest {
         var lib = new Library();
         lib.addAll("Mushroom_Publishing.txt");
 
-        // FILL IN MORE TESTS HERE!
+        //CASE: tests attempt to check out an already checked out book
+        var checkout1 = lib.checkout(9781843190004L, "Jane Doe", 1, 1, 2008);
+        var checkout2 = lib.checkout(9781843190004L, "John Doe", 1, 1, 2008);
+        assertFalse(checkout2);
+
+        //CASE: tests attempt to check in from a checked out book, and then an attempt to check that same book in by isbn
+        var checkin1 = lib.checkin("Jane Doe");
+        var checkin2=lib.checkin(9781843190004L);
+
+        assertTrue(checkin1);
+        assertFalse(checkin2);
+
+        //CASE: returns a null book if isbn doesn't exist
+        var lookup1=lib.lookup(737834798L);
+        assertNull(lookup1);
+
+
+
     }
 
 }
