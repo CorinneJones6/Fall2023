@@ -12,7 +12,7 @@ class GrayscaleImageTest {
     private GrayscaleImage veryLarge; // A very large image
     private GrayscaleImage allBlackImage; // An all-black image
     private GrayscaleImage allWhiteImage; // An all-white image
-    private GrayscaleImage stripedSquare; //A striped square to test mirroring
+    private GrayscaleImage singlePixel; //A striped square to test mirroring
 
 
     @BeforeEach
@@ -26,7 +26,7 @@ class GrayscaleImageTest {
         veryLarge = new GrayscaleImage(new double[1000][1000]); // A very large image with dimensions 1000x1000
         allBlackImage = new GrayscaleImage(new double[5][5]); // An all-black image
         allWhiteImage = new GrayscaleImage(new double[5][5]); // An all-white image
-        stripedSquare = new GrayscaleImage(new double [][]{{255, 0, 255}, {255, 0, 255}}); //A striped image
+        singlePixel = new GrayscaleImage(new double [][]{{255}}); //Should be the same around y axis when mirrored
 
         // Initialize the all-white image with white pixels (255) and the all-black image with black pixels (0)
         for (int row = 0; row < 5; row++) {
@@ -46,8 +46,8 @@ class GrayscaleImageTest {
     @Test
     void testGetPixel(){
         assertEquals(smallSquare.getPixel(0,0), 1);
-        assertEquals(smallSquare.getPixel(0,1), 2);
-        assertEquals(smallSquare.getPixel(1,0), 3);
+        assertEquals(smallSquare.getPixel(1,0), 2);
+        assertEquals(smallSquare.getPixel(0,1), 3);
         assertEquals(smallSquare.getPixel(1,1), 4);
         //Added the below tests
         assertEquals(veryLarge.getPixel(888,888), 888);
@@ -107,8 +107,8 @@ class GrayscaleImageTest {
         assertEquals(allWhite.averageBrightness(), 127, 127*.001);
         var vLarge=veryLarge.normalized();
         assertEquals(vLarge.averageBrightness(), 127, 127*.001);
-        var stripSquare=stripedSquare.normalized();
-        assertEquals(stripSquare.averageBrightness(), 127, 127*.001);
+        var onePixel=singlePixel.normalized();
+        assertEquals(onePixel.averageBrightness(), 127, 127*.001);
 
     }
 
@@ -125,7 +125,7 @@ class GrayscaleImageTest {
 
     @Test
     void mirrorablePicture(){
-        assertEquals(stripedSquare.mirrored(), stripedSquare);
+        assertEquals(singlePixel.mirrored(), singlePixel);
         assertNotEquals(smallSquare.mirrored(), smallSquare);
     }
 

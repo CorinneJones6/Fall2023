@@ -94,7 +94,7 @@ public class GrayscaleImage {
         }
         // Return the pixel value from the imageData array at the specified (y, x) coordinates
         // Note that the coordinates are provided as (x, y), but they are access in the array as [y][x]
-        return this.imageData[x][y];
+        return this.imageData[y][x];
     }
 
     /**
@@ -162,8 +162,8 @@ public class GrayscaleImage {
 
     public void setPixel(int x, int y, double data){
         // Helper function used throughout
-        // Set the pixel value in the imageData array at the specified (y, x) coordinates
-        imageData[x][y]=data;
+        // Set the pixel value in the imageData array at the specified (x,y) coordinates
+        imageData[y][x]=data;
     }
     public GrayscaleImage normalized(){
         // Calculate the average brightness of the original image
@@ -198,20 +198,20 @@ public class GrayscaleImage {
      * @return a new GrayscaleImage that is a mirrored version of the this
      */
     public GrayscaleImage mirrored () {
-        // Create a new GrayscaleImage with the same dimensions as the original image
+        //Create a new GrayscaleImage with the same dimensions as the original image
         GrayscaleImage mirroredImage = new GrayscaleImage(this.imageData);
-
-        // Iterate through the rows and columns of the original image for mirroring
+        //Iterate through the rows and columns of the original image for mirroring
         for (var row = 0; row < imageData.length; row++) {
             for (var col = 0; col < imageData[0].length; col++) {
-                // Set the pixel value in the mirrored image by swapping the columns across the y-axis
-                // The new column index is calculated as the difference between the last column index and the current column
-                mirroredImage.setPixel(row, col, imageData[row][imageData[0].length - 1 - col]);
+                //Set te pixel value in the mirrored image by swaping the columns across the y-axis
+                //The new column index is caluclated as the difference between the last column index and the current column
+                mirroredImage.setPixel(col, row, imageData[row][imageData[0].length - 1 - col]);
             }
         }
-        // Return the new GrayscaleImage, which is now the mirrored version of the original image
+        //Return the new GrayscaleImage, which is now the mirrored version of the oringal image
         return mirroredImage;
     }
+
 
     /**
      * Returns a new GrayscaleImage of size width x height, containing the part of `this`
