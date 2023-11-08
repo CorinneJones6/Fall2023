@@ -11,11 +11,11 @@ import java.util.Scanner;
  * Class representation of a library (a collection of library books).
  * 
  */
-public class Library {
+public class LibraryGeneric<T> {
 
-  private ArrayList<LibraryBook> library;
+  private ArrayList<LibraryBookGeneric<T>> library;
 
-  public Library() {
+  public LibraryGeneric() {
     library = new ArrayList<>();
   }
 
@@ -30,7 +30,7 @@ public class Library {
    *          -- title of the book to be added
    */
   public void add(long isbn, String author, String title) {
-    library.add(new LibraryBook(isbn, author, title));
+    library.add(new LibraryBookGeneric<T>(isbn, author, title));
   }
 
   /**
@@ -39,7 +39,7 @@ public class Library {
    * @param list
    *          -- list of library books to be added
    */
-  public void addAll(ArrayList<LibraryBook> list) {
+  public void addAll(ArrayList<LibraryBookGeneric<T>> list) {
     library.addAll(list);
   }
 
@@ -52,7 +52,7 @@ public class Library {
    * @param filename
    */
   public void addAll(String filename) {
-    ArrayList<LibraryBook> toBeAdded = new ArrayList<LibraryBook>();
+    ArrayList<LibraryBookGeneric<T>> toBeAdded = new ArrayList<>();
 
     try (Scanner fileIn = new Scanner(new File(filename))) {
 
@@ -78,7 +78,7 @@ public class Library {
             throw new ParseException("Title", lineNum);
           }
           String title = lineIn.next();
-          toBeAdded.add(new LibraryBook(isbn, author, title));
+          toBeAdded.add(new LibraryBookGeneric(isbn, author, title));
         }
         lineNum++;
       }
@@ -102,8 +102,8 @@ public class Library {
    * @param isbn
    *          -- ISBN of the book to be looked up
    */
-  public String lookup(long isbn) {
-    for(LibraryBook book: library){
+  public T lookup(long isbn) {
+    for(LibraryBookGeneric<T> book: library){
       if(book.getIsbn()==isbn){
         return book.getHolder();
       }
@@ -119,9 +119,9 @@ public class Library {
    * @param holder
    *          -- holder whose checked out books are returned
    */
-  public ArrayList<LibraryBook> lookup(String holder) {
-    ArrayList<LibraryBook>holderList=new ArrayList<>();
-    for(LibraryBook book:library){
+  public ArrayList<LibraryBookGeneric<T>> lookup(T holder) {
+    ArrayList<LibraryBookGeneric<T>>holderList=new ArrayList<>();
+    for(LibraryBookGeneric<T> book:library){
       if(book.getHolder()!=null && book.getHolder().equals(holder)){
         holderList.add(book);
       }
@@ -150,8 +150,8 @@ public class Library {
    *          -- year of the new due date of the library book
    * 
    */
-  public boolean checkout(long isbn, String holder, int month, int day, int year) {
-    for(LibraryBook book : library){
+  public boolean checkout(long isbn, T holder, int month, int day, int year) {
+    for(LibraryBookGeneric<T> book : library){
       if (book.getIsbn()==isbn){
         if(!book.getCheckStatus()){
           GregorianCalendar gc=new GregorianCalendar(year, month, day);
@@ -177,7 +177,7 @@ public class Library {
    *          -- ISBN of the library book to be checked in
    */
   public boolean checkin(long isbn) {
-    for(LibraryBook book : library){
+    for(LibraryBookGeneric<T> book : library){
       if (book.getIsbn()==isbn){
         if(book.getCheckStatus()){
           book.setCheckIn();
@@ -200,9 +200,9 @@ public class Library {
    * @param holder
    *          -- holder of the library books to be checked in
    */
-  public boolean checkin(String holder) {
+  public boolean checkin(T holder) {
     boolean found = false;
-      for (LibraryBook book:library){
+      for (LibraryBookGeneric<T> book:library){
         if(book.getHolder()!=null && book.getHolder().equals(holder)) {
           book.setCheckIn();
           found=true;
