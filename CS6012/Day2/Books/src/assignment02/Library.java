@@ -98,6 +98,8 @@ public class Library<T> {
     library.addAll(toBeAdded);
   }
 
+  //-------------------START OF CORINNE'S CODE--------------------//
+
   /**
    * Returns the holder of the library book with the specified ISBN.
    * 
@@ -124,10 +126,10 @@ public class Library<T> {
    *          -- holder whose checked out books are returned
    */
   public ArrayList<LibraryBook<T>> lookup(T holder) {
-    ArrayList<LibraryBook<T>>holderList=new ArrayList<>();
+    ArrayList<LibraryBook<T>>holderList=new ArrayList<>(); //creates new arraylist to return
     for(LibraryBook<T> book:library){
       if(book.getHolder()!=null && book.getHolder().equals(holder)){
-        holderList.add(book);
+        holderList.add(book); //adds books to the arraylist checked out from holder
       }
     }
     return holderList;
@@ -157,9 +159,9 @@ public class Library<T> {
   public boolean checkout(long isbn, T holder, int month, int day, int year) {
     for(LibraryBook<T> book : library){
       if (book.getIsbn()==isbn){
-        if(!book.getCheckStatus()){
+        if(!book.getCheckStatus()){ //if checkedOut boolean is false, enters the loop
           GregorianCalendar gc=new GregorianCalendar(year, month, day);
-          book.setCheckOut(holder, gc);
+          book.setCheckOut(holder, gc); //nested function, passes the information to set LibraryBook specific variables
           return true;
         }
         return false;
@@ -183,8 +185,8 @@ public class Library<T> {
   public boolean checkin(long isbn) {
     for(LibraryBook<T> book : library){
       if (book.getIsbn()==isbn){
-        if(book.getCheckStatus()){
-          book.setCheckIn();
+        if(book.getCheckStatus()){ //if LibraryBook checkedOut boolean is true, enters loop
+          book.setCheckIn(); //sets the LibraryBook specific member variables to null
           return true;
         }
         return false;
@@ -209,7 +211,7 @@ public class Library<T> {
       for (LibraryBook<T> book:library){
         if(book.getHolder()!=null && book.getHolder().equals(holder)) {
           book.setCheckIn();
-          found=true;
+          found=true; //function specific boolean to keep iterating through the library array
         }
       }
       return found;
@@ -248,17 +250,17 @@ public class Library<T> {
    */
   public ArrayList<LibraryBook<T>> getOverdueList(int month, int
           day, int year) {
-    GregorianCalendar dueDate = new GregorianCalendar(year, month, day);
-    ArrayList<LibraryBook<T>> overDueList = new ArrayList<>();
+   GregorianCalendar dueDate = new GregorianCalendar(year, month, day);
+   ArrayList<LibraryBook<T>> overDueList = new ArrayList<>();
    for(LibraryBook<T> book: library) {
-     if (book.getCheckStatus()) {
-       if (book.getDueDate().compareTo(dueDate) < 0) {
+     if (book.getCheckStatus()) { //enters this loop if LibraryBook checkedOut is true
+       if (book.getDueDate().compareTo(dueDate) < 0) { //if the book dueDate is less than the provided date, add to the list
          overDueList.add(book);
        }
      }
    }
    OrderByDueDate comparator=new OrderByDueDate();
-   sort (overDueList, comparator);
+   sort (overDueList, comparator); //sort the overDueList by oldest first
    return overDueList;
   }
 
@@ -294,7 +296,7 @@ public class Library<T> {
      */
     public int compare(LibraryBook<T> lhs,
                        LibraryBook<T> rhs) {
-      return (int) (lhs.getIsbn() - rhs.getIsbn());
+      return (int) (lhs.getIsbn() - rhs.getIsbn()); //cast a long to an integer
     }
   }
 
@@ -306,12 +308,12 @@ public class Library<T> {
           Comparator<LibraryBook<T>> {
     public int compare(LibraryBook<T> lhs,
                        LibraryBook<T> rhs){
-     int elem =lhs.getAuthor().compareTo(rhs.getAuthor());
-     if(elem==0){
-       return lhs.getTitle().compareTo(rhs.getTitle());
+     int res = lhs.getAuthor().compareTo(rhs.getAuthor());
+     if(res == 0){
+       return lhs.getTitle().compareTo(rhs.getTitle()); //enters this loop in case of a tie breaker
      }
      else {
-       return elem;
+       return res;
         }
     }
   }
@@ -324,10 +326,9 @@ public class Library<T> {
           Comparator<LibraryBook<T>> {
 
     public int compare(LibraryBook<T> lhs, LibraryBook<T> rhs) {
-      GregorianCalendar dueDate1 = lhs.getDueDate();
-      GregorianCalendar dueDate2 = rhs.getDueDate();
 
-      return dueDate1.compareTo(dueDate2);
+      return lhs.getDueDate().compareTo(rhs.getDueDate());
+
     }
   }
 

@@ -10,7 +10,6 @@ class LibraryTest {
 
     @Test
     public void testEmpty() {
-//        Library lib = new Library();
         Library<String> lib=new Library<>();
         assertNull(lib.lookup(978037429279L));
 
@@ -25,7 +24,6 @@ class LibraryTest {
     @Test
     public void testNonEmpty() {
 
-//        var lib = new Library();
         Library<String> lib=new Library<>();
         // test a small library
         lib.add(9780374292799L, "Thomas L. Friedman", "The World is Flat");
@@ -48,24 +46,23 @@ class LibraryTest {
 
     @Test
     public void testLargeLibrary(){
-        // test a medium library
-//        var lib = new Library();
+        //test a medium library
         Library<String> lib=new Library<>();
         lib.addAll("Mushroom_Publishing.txt");
 
-        //CASE: tests attempt to check out an already checked out book
+        //Test 1: tests attempt to check out an already checked out book
         var checkout1 = lib.checkout(9781843190004L, "Jane Doe", 1, 1, 2008);
         var checkout2 = lib.checkout(9781843190004L, "John Doe", 1, 1, 2008);
         assertFalse(checkout2);
 
-        //CASE: tests attempt to check in from a checked out book, and then an attempt to check that same book in by isbn
+        //Test 2: tests attempt to check in from a checked out book, and then an attempt to check that same book in by isbn
         var checkin1 = lib.checkin("Jane Doe");
         var checkin2=lib.checkin(9781843190004L);
 
         assertTrue(checkin1);
         assertFalse(checkin2);
 
-        //CASE: returns a null book if isbn doesn't exist
+        //Test 3: returns a null book if isbn doesn't exist
         var lookup1=lib.lookup(737834798L);
         assertNull(lookup1);
 
@@ -172,36 +169,35 @@ class LibraryTest {
         Library<String> lib = new Library<>();
         lib.addAll("Mushroom_Publishing.txt");
 
-        //test 1 - testing sort by author
+        //Test 1: testing sort by author
         var sortedByAuthor = lib.getOrderedByAuthor();
-        //System.out.println(sortedByAuthor);
         assertEquals(sortedByAuthor.get(0).getAuthor(), "Alan Burt Akers");
 
-        //test 2 - check if the size of the sorted list matches the original library size
+        //Test 2: check if the size of the sorted list matches the original library size
         assertEquals(sortedByAuthor.size(), lib.size());
 
-        //test 3 - check that the sort function is working in ascending order
+        //Test 3: check that the sort function is working in ascending order
         for (int i = 1; i < sortedByAuthor.size(); i++) {
             String author1 = sortedByAuthor.get(i - 1).getAuthor();
             String author2 = sortedByAuthor.get(i).getAuthor();
             assertTrue(author1.compareTo(author2) <= 0);
         }
 
-        //test 4 - an empty library doesn't cause an error if put through the sorted function and stays empty
+        //Test 4:  an empty library doesn't cause an error if put through the sorted function and stays empty
         Library<String> emptyLib = new Library<>();
         var sortedEmptyLib = emptyLib.getOrderedByAuthor();
         assertTrue(sortedEmptyLib.isEmpty());
 
-        //test 5 - check that an empty library throws an out of bounds error if there is an attempt to index in
+        //Test 5: check that an empty library throws an out of bounds error if there is an attempt to index in
         assertThrows(IndexOutOfBoundsException.class, () -> {sortedEmptyLib.get(0);});
 
-        //test 6 - books with the same author get sorted by title
+        //Test 6: books with the same author get sorted by title
         String sameAuthor = "Moyra Caldecott";
         int firstIndex = sortedByAuthor.indexOf(new LibraryBook<String>(9781843190028L, sameAuthor, "Crystal Legends"));
         int lastIndexWithSameAuthor = sortedByAuthor.lastIndexOf(new LibraryBook<String>(9781843190004L, sameAuthor, "Weapons of the Wolfhound"));
         assertTrue(firstIndex < lastIndexWithSameAuthor);
 
-        //test 7 - check that adding a book (to the end) and then sorting puts it in the right spot
+        //Test 7: check that adding a book (to the end) and then sorting puts it in the right spot
         int origSize = lib.size();
         lib.add(22L, "AAA New Author", "New Title");
         assertEquals(lib.size(), origSize+1);
