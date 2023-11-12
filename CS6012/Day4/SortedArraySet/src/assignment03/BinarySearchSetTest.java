@@ -69,6 +69,17 @@ class BinarySearchSetTest {
     }
 
     @Test
+    public void testAdd3(){
+        BinarySearchSet<Integer>integerSet=new BinarySearchSet<>();
+        integerSet.add(1);
+        integerSet.add(2);
+        integerSet.add(4);
+        integerSet.add(5);
+        integerSet.add(6);
+        integerSet.add(3);
+    }
+
+    @Test
     public void testAddAll(){
         BinarySearchSet<String> addAllTest = new BinarySearchSet<>();
         addAllTest.add("blue");
@@ -244,7 +255,7 @@ class BinarySearchSetTest {
         assertEquals(Integer.valueOf(5), testGetSet.get(validIndex));
 
         // Test with an invalid index (out of bounds)
-        int invalidIndex = (testGetSet.getSet_()).length + 1;
+        int invalidIndex = testGetSet.size() + 1;
         try {
             testGetSet.get(invalidIndex);
             fail("Expected IndexOutOfBoundsException");
