@@ -137,43 +137,6 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
         return new MyIterator();
     }
 
-    class MyIterator implements Iterator<E> {
-
-        private int position; // Position variable to keep track of the iterators current position
-
-        @Override
-        public boolean hasNext() {
-
-            // This indicates there is another element in the iteration
-            return position < size_;
-        }
-
-        @Override
-        public E next() {
-
-            // If not another element, throw an exception
-            if (!hasNext()) {
-                throw new NoSuchElementException("No more elements to iterate over");
-            }
-            // Get the element at the current position, then increase the position
-            return get(position++);
-        }
-
-        @Override
-        public void remove() {
-            // Remove the last element retrieved by the iterator
-            if (position == 0 || position > size_ + 1) {
-                throw new NoSuchElementException("No more elements to iterate over");
-            }
-            // Get the element at the current position minus one, since next automatically increments
-            E obj = get(position - 1);
-
-            // Remove the element from the BinarySearchSet using the outer class remove method
-            BinarySearchSet.this.remove(obj);
-        }
-
-    }
-
     @Override
     public boolean remove(E element) {
         // Use binary search to find the index of the element in the set
@@ -191,23 +154,19 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
         // If the element is not found in the set, return false
         return false;
     }
-//TODO go over this removeAll
+
     @Override
     public boolean removeAll(Collection<? extends E> elements) {
+        int origSize = size();
 
         for (E obj : elements) {
             // Remove the current element from the set using the remove method
             remove(obj);
         }
-        // Check if any of the elements in the collection are still present in the set
-        for (E obj : elements) {
-            // If any element is still present, return false
-            if (contains(obj)) {
-                return false;
-            }
-        }
-        // If all elements have been successfully removed, return true
-        return true;
+        int finalSize = size();
+
+        // Returns true if the set has been changed
+        return finalSize < origSize;
     }
 
     @Override
@@ -215,11 +174,12 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
         // Return the current size of the set
         return size_;
     }
-    //TODO go over this function
+
     @Override
     public E[] toArray() {
         // Create a new array to avoid modifying the internal set_
         E[] arrayCopy = Arrays.copyOf(set_, size_);
+//        E[] arrayCopy=(E[]) new Object[size_];
 
         // Return the copied array
         return arrayCopy;
@@ -279,6 +239,43 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
             throw new IndexOutOfBoundsException("Index " + i + " is out of bounds for BinarySearchSet");
         }
         return set_[i];
+    }
+
+    class MyIterator implements Iterator<E> {
+
+        private int position; // Position variable to keep track of the iterators current position
+
+        @Override
+        public boolean hasNext() {
+
+            // This indicates there is another element in the iteration
+            return position < size_;
+        }
+
+        @Override
+        public E next() {
+
+            // If not another element, throw an exception
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more elements to iterate over");
+            }
+            // Get the element at the current position, then increase the position
+            return get(position++);
+        }
+
+        @Override
+        public void remove() {
+            // Remove the last element retrieved by the iterator
+            if (position == 0 || position > size_ + 1) {
+                throw new NoSuchElementException("No more elements to iterate over");
+            }
+            // Get the element at the current position minus one, since next automatically increments
+            E obj = get(position - 1);
+
+            // Remove the element from the BinarySearchSet using the outer class remove method
+            BinarySearchSet.this.remove(obj);
+        }
+
     }
 
 }

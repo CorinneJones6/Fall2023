@@ -8,72 +8,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BinarySearchSetTest {
 
-    //============START OF ITERATOR TESTS============//
-
-    @Test
-    public void testNextAndHasNext() {
-        //Test next and hasNext by making an array, adding it to the BinarySearchSet, then comparing at same index
-        var arrayList = new ArrayList<>(Arrays.asList(1, 3, 5, 7, 9));
-
-        BinarySearchSet<Integer> hasNextTest = new BinarySearchSet<>();
-        hasNextTest.addAll(arrayList);
-        var iterator = hasNextTest.iterator();
-
-        assertTrue(iterator.hasNext());
-        assertEquals(iterator.next(), arrayList.get(0));
-
-        assertTrue(iterator.hasNext());
-        assertEquals(iterator.next(), arrayList.get(1));
-
-        assertTrue(iterator.hasNext());
-        assertEquals(iterator.next(), arrayList.get(2));
-
-        assertTrue(iterator.hasNext());
-        assertEquals(iterator.next(), arrayList.get(3));
-
-        assertTrue(iterator.hasNext());
-        assertEquals(iterator.next(), arrayList.get(4));
-
-        assertFalse(iterator.hasNext());
-    }
-
-    @Test
-    public void testRemoveIterator() {
-        // Tests the 'remove' method of the iterator, unable to remove at the "0" index w/o calling next() first
-        BinarySearchSet<String> testRemoveIterator = new BinarySearchSet<>();
-        testRemoveIterator.add("red");
-        testRemoveIterator.add("orange");
-        testRemoveIterator.add("yellow");
-        testRemoveIterator.add("green");
-        testRemoveIterator.add("blue");
-
-        assertTrue(testRemoveIterator.contains("yellow"));
-
-        // Get an iterator and advance it to the position of "yellow"
-        Iterator<String> iterator = testRemoveIterator.iterator();
-        while (iterator.hasNext()) {
-            String str = iterator.next().toString();
-            System.out.println(str);
-            if (str.equals("yellow")) {
-                break;
-            }
-        }
-        // Call the remove method using the iterator
-        iterator.remove();
-        // Now "yellow" should be removed from the set
-        assertFalse(testRemoveIterator.contains("yellow"));
-    }
-
-    //=================END OF ITERATOR TESTS===================//
-
     @Test
     public void testFirst() {
         //Tested  throughout
+        BinarySearchSet<Integer> emptySet=new BinarySearchSet<>();
+        assertThrows(NoSuchElementException.class, emptySet::first);
     }
 
     @Test
     public void testLast() {
         //Tested throughout
+        BinarySearchSet<Integer> emptySet=new BinarySearchSet<>();
+        assertThrows(NoSuchElementException.class, emptySet::last);
     }
 
     @Test
@@ -111,6 +57,7 @@ class BinarySearchSetTest {
 
         assertEquals(6, set.size());
         assertTrue(set.containsAll(elementsToAdd));
+
     }
 
     @Test
@@ -208,14 +155,17 @@ class BinarySearchSetTest {
     @Test
     public void testContainsAll() {
         // Tests the 'containsAll' method for checking if the set contains all elements from a collection
-        BinarySearchSet<String> stringSet = new BinarySearchSet<>();
-        stringSet.add("one");
-        stringSet.add("two");
-        stringSet.add("three");
+        BinarySearchSet<String> stringSetTest = new BinarySearchSet<>();
+        stringSetTest.add("one");
+        stringSetTest.add("two");
+        stringSetTest.add("three");
 
         Set<String> elementsToCheck = new HashSet<>(Arrays.asList("one", "two", "three"));
+        //one number present, one not, should come back false
+        Set<String> elementsToCheck2=new HashSet<>(Arrays.asList("one", "four"));
 
-        assertTrue(stringSet.containsAll(elementsToCheck));
+        assertTrue(stringSetTest.containsAll(elementsToCheck));
+        assertFalse(stringSetTest.containsAll(elementsToCheck2));
     }
 
     @Test
@@ -233,7 +183,6 @@ class BinarySearchSetTest {
     public void testRemove() {
         // Tests the 'remove' method in various scenarios, in the middle and the last
 
-
         BinarySearchSet<Integer> removeSetTest = new BinarySearchSet<>();
         assertTrue(removeSetTest.isEmpty());
         assertEquals(0, removeSetTest.size());
@@ -247,6 +196,7 @@ class BinarySearchSetTest {
         //Remove the last element
         assertEquals(removeSetTest.last(), 8);
         assertEquals(removeSetTest.size(), 2);
+        assertFalse(removeSetTest.remove(9));
     }
 
     @Test
@@ -274,23 +224,43 @@ class BinarySearchSetTest {
 
     @Test
     public void testSize() {
-
+        //Tested throughout
     }
 
     @Test
     public void testToArray() {
+        BinarySearchSet<Integer> toArrayTest = new BinarySearchSet<>();
 
+        toArrayTest.add(1);
+        toArrayTest.add(3);
+        toArrayTest.add(5);
+        toArrayTest.add(7);
+        toArrayTest.add(9);
+
+        // Get the array representation using toArray
+        Object[] toArrayResult = toArrayTest.toArray();
+
+        // Expected array based on the elements added
+        Object[] expectedResult = {1, 3, 5, 7, 9};
+
+        // Asserting that the obtained array is equal to the expected array
+        assertArrayEquals(expectedResult, toArrayResult);
     }
 
     @Test
     public void testGrowArray() {
+        //Test grow array on a large amount of additions
+        BinarySearchSet<Integer> growArrayTest = new BinarySearchSet<>();
 
+        for (int i = 1; i <= 1000; i++) {
+            growArrayTest.add(i);
+        }
+        assertEquals(growArrayTest.size(), 1000);
     }
 
     @Test
     public void testGet() {
         // Tests the 'get' method in various scenarios
-
 
         BinarySearchSet<Integer> testGetSet = new BinarySearchSet<>();
         testGetSet.add(1);
@@ -320,5 +290,63 @@ class BinarySearchSetTest {
             // This exception is expected
         }
     }
+
+    //============START OF ITERATOR TESTS============//
+
+    @Test
+    public void testNextAndHasNext() {
+        //Test next and hasNext by making an array, adding it to the BinarySearchSet, then comparing at same index
+        var arrayList = new ArrayList<>(Arrays.asList(1, 3, 5, 7, 9));
+
+        BinarySearchSet<Integer> hasNextTest = new BinarySearchSet<>();
+        hasNextTest.addAll(arrayList);
+        var iterator = hasNextTest.iterator();
+
+        assertTrue(iterator.hasNext());
+        assertEquals(iterator.next(), arrayList.get(0));
+
+        assertTrue(iterator.hasNext());
+        assertEquals(iterator.next(), arrayList.get(1));
+
+        assertTrue(iterator.hasNext());
+        assertEquals(iterator.next(), arrayList.get(2));
+
+        assertTrue(iterator.hasNext());
+        assertEquals(iterator.next(), arrayList.get(3));
+
+        assertTrue(iterator.hasNext());
+        assertEquals(iterator.next(), arrayList.get(4));
+
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void testRemoveIterator() {
+        // Tests the 'remove' method of the iterator, unable to remove at the "0" index w/o calling next() first
+        BinarySearchSet<String> testRemoveIterator = new BinarySearchSet<>();
+        testRemoveIterator.add("red");
+        testRemoveIterator.add("orange");
+        testRemoveIterator.add("yellow");
+        testRemoveIterator.add("green");
+        testRemoveIterator.add("blue");
+
+        assertTrue(testRemoveIterator.contains("yellow"));
+
+        // Get an iterator and advance it to the position of "yellow"
+        Iterator<String> iterator = testRemoveIterator.iterator();
+        while (iterator.hasNext()) {
+            String str = iterator.next().toString();
+            System.out.println(str);
+            if (str.equals("yellow")) {
+                break;
+            }
+        }
+        // Call the remove method using the iterator
+        iterator.remove();
+        // Now "yellow" should be removed from the set
+        assertFalse(testRemoveIterator.contains("yellow"));
+    }
+
+    //=================END OF ITERATOR TESTS===================//
 
 }
