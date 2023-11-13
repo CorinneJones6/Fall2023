@@ -1,6 +1,5 @@
 package assignment03;
 
-import java.net.Inet4Address;
 import java.util.*;
 
 public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
@@ -31,7 +30,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
 
     @Override
     public E first() throws NoSuchElementException {
-        // Check if the set is empty
+
         if (isEmpty()) {
             // If empty, throw a NoSuchElementException
             throw new NoSuchElementException("Set is empty");
@@ -42,7 +41,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
 
     @Override
     public E last() throws NoSuchElementException {
-        // Check if the set is empty
+
         if (isEmpty()) {
             // If empty, throw a NoSuchElementException
             throw new NoSuchElementException("Set is empty");
@@ -53,30 +52,32 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
 
     @Override
     public boolean add(E element) {
-
-        if(element==null){
+        //don't allow null items to be added
+        if (element == null) {
             throw new IllegalArgumentException("Can't add null element");
         }
 
         // Find the insertion point using binary search
         int insertionPoint = binarySearch(element);
 
-        // If the element is not already present in the set
+        // If the element is already present in the set, it will return positive, return false
         if (insertionPoint >= 0) {
             return false;
         }
-        // If the insertion point is negative, convert it to a positive index
+        // If the insertion point is negative, this is a flag for the index, convert it to a positive
         insertionPoint = -(insertionPoint + 1);
 
         // If the current size exceeds the capacity, increase the capacity of the set
         if (size_ >= capacity_) {
-            growArray();
+            growCapacity();
         }
 
         // Shift elements to make space for the new element at the insertion point
         System.arraycopy(set_, insertionPoint, set_, insertionPoint + 1, size_ - insertionPoint);
+
         // Insert the new element at the calculated insertion point
         set_[insertionPoint] = element;
+
         // Increment the size of the set
         size_++;
 
@@ -87,19 +88,15 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
     public boolean addAll(Collection<? extends E> elements) {
         // Store the original size of the set
         int origSize = size();
-        // Iterate through the elements in the provided collection
+
         for (E obj : elements) {
-            // Check if the set does not already contain the current element
-            // MDJ TODO maybe remove this
-            if (!contains(obj)) {
-                // If not, add the element to the set
-                add(obj);
-            }
+            // add() checks for duplicates, won't add if it already exists
+            add(obj);
         }
-        // Get the final size of the set after adding unique elements
+
         int finalSize = size();
-        // Return true if the final size is greater than the original size, indicating that elements were added
-        //Will return false if the final size is the same, indicating that elements weren't added
+
+        //Will return "true" if elements added, "false" if not based on comparing sizes
         return finalSize > origSize;
     }
 
@@ -117,11 +114,10 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
 
     @Override
     public boolean containsAll(Collection<? extends E> elements) {
-        // Iterate through each element in the provided collection
+
         for (E obj : elements) {
-            // Check if the current element is not present in the set
             if (!contains(obj)) {
-                // If not present, return false indicating that not all elements are contained in the set
+                // If current element not present, return false indicating that it's not in the set
                 return false;
             }
         }
@@ -138,46 +134,41 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
     @Override
     public Iterator iterator() {
         // Create and return a new instance of the custom iterator (MyIterator) for this set
-        return new MyIterator(this);
+        return new MyIterator();
     }
 
     class MyIterator implements Iterator<E> {
-        //TODO why is this set grayed out but I can't delete it?
-        private E[] set_; // Array to store the elements of the set
 
-        private int position; // Position variable to keep track of the iterator's current position
-
-        public MyIterator(BinarySearchSet<E> set) {
-            // Initialize the array with the elements of the set
-            set_ = set.getSet_();
-        }
+        private int position; // Position variable to keep track of the iterators current position
 
         @Override
         public boolean hasNext() {
-            // Check if the iterators current position is less than the size of the set minus 1
+
             // This indicates there is another element in the iteration
-            return position < size_ - 1;
+            return position < size_;
         }
 
         @Override
         public E next() {
-            // Get the element at the current position
-            E obj = get(position);
-            // Check if there is another element in the iteration
-            if (hasNext()) {
-                // If there is, move to the next position
-                position++;
+
+            // If not another element, throw an exception
+            if (!hasNext()) {
+                throw new NoSuchElementException("No more elements to iterate over");
             }
-            // Return the retrieved element
-            return obj;
+            // Get the element at the current position, then increase the position
+            return get(position++);
         }
 
         @Override
         public void remove() {
             // Remove the last element retrieved by the iterator
-            // Get the element at the current position
-            E obj = get(position);
-            // Remove the element from the BinarySearchSet using the outer class's remove method
+            if (position == 0 || position > size_ + 1) {
+                throw new NoSuchElementException("No more elements to iterate over");
+            }
+            // Get the element at the current position minus one, since next automatically increments
+            E obj = get(position - 1);
+
+            // Remove the element from the BinarySearchSet using the outer class remove method
             BinarySearchSet.this.remove(obj);
         }
 
@@ -197,14 +188,13 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
             // Return true to indicate successful removal
             return true;
         }
-
         // If the element is not found in the set, return false
         return false;
     }
-
+//TODO go over this removeAll
     @Override
     public boolean removeAll(Collection<? extends E> elements) {
-        // Iterate through each element in the provided collection
+
         for (E obj : elements) {
             // Remove the current element from the set using the remove method
             remove(obj);
@@ -225,7 +215,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
         // Return the current size of the set
         return size_;
     }
-
+    //TODO go over this function
     @Override
     public E[] toArray() {
         // Create a new array to avoid modifying the internal set_
@@ -236,8 +226,8 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
     }
 
     // Helper function to increase the capacity of the set's internal array
-    public void growArray() {
-        // Double the capacity of the set
+    public void growCapacity() {
+
         capacity_ = 2 * capacity_;
 
         // Create a new array with the updated capacity and copy the original array contents into it
@@ -276,16 +266,11 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
             } else if (cmp > 0) {
                 right = mid - 1;
             } else {
-                return mid; // Element found, returns a positive so we know it is present
+                return mid; // Element found, returns a positive if present
             }
         }
 
         return -(left + 1); // Element not found, return the insertion point, add a +1 to account for first element creation
-    }
-
-    //Returns the set (for testing)
-    public E[] getSet_() {
-        return set_;
     }
 
     //Returns an element from the set (for testing)
