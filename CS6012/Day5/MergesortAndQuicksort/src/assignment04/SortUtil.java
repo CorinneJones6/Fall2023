@@ -72,7 +72,7 @@ public class SortUtil {
             rightArray[i] = array.get(middle + 1 + i);
         }
 
-        //Beginning indeces for both arrays.
+        //Beginning indexes for both arrays.
         int leftIndex = 0, rightIndex = 0;
 
         int currentIndex = start;
