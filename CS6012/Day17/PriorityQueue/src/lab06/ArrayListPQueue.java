@@ -2,6 +2,7 @@ package lab06;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ArrayListPQueue<T extends Comparable<? super T>> implements PQueueInterface<T> {
 
@@ -22,7 +23,7 @@ public class ArrayListPQueue<T extends Comparable<? super T>> implements PQueueI
         while (index > 0) {
             int parentIndex = (index - 1) / 2;
             if (data_.get(index).compareTo(data_.get(parentIndex)) < 0) {
-                data_.set(index, data_.get(parentIndex));
+                Collections.swap(data_, index, parentIndex);
                 index = parentIndex;
             } else {
                 break;
@@ -53,7 +54,7 @@ public class ArrayListPQueue<T extends Comparable<? super T>> implements PQueueI
             }
 
             if (smallest != index) {
-                data_.set(index, data_.get(smallest));
+                Collections.swap(data_, index, smallest);
                 index = smallest;
             } else {
                 break;
