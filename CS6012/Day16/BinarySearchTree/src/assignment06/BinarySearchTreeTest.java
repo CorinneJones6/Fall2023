@@ -1,9 +1,6 @@
 package assignment06;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,15 +46,15 @@ class BinarySearchTreeTest {
     void addAll() {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-        // Test adding elements from an empty collection
-        Collection<Integer> emptyCollection = Arrays.asList();
-        assertFalse(bst.addAll(emptyCollection));
+        // Test adding elements from an empty array
+        ArrayList<Integer> emptyArray = new ArrayList<>();
+        assertFalse(bst.addAll(emptyArray));
         assertTrue(bst.isEmpty());
 
-        // Test adding elements from a non-empty collection
-        Collection<Integer> collectionToAdd = Arrays.asList(5, 3, 8, 2, 4, 7, 9);
+        // Test adding elements from a non-empty array
+        ArrayList<Integer> arrayToAdd = new ArrayList<>(Arrays.asList(5, 3, 8, 2, 4, 7, 9));
 
-        assertTrue(bst.addAll(collectionToAdd));
+        assertTrue(bst.addAll(arrayToAdd));
         assertEquals(7, bst.size());
         assertTrue(bst.contains(5));
         assertTrue(bst.contains(3));
@@ -68,18 +65,18 @@ class BinarySearchTreeTest {
         assertTrue(bst.contains(9));
 
         // Test adding elements where some already exist in the BST
-        assertFalse(bst.addAll(collectionToAdd));
+        assertFalse(bst.addAll(arrayToAdd));
         assertEquals(7, bst.size());
 
-        // Test adding elements from another non-empty collection
-        Collection<Integer> anotherCollectionToAdd = Arrays.asList(1, 6, 10);
+        // Test adding elements from another non-empty array
+        ArrayList<Integer> anotherArrayList = new ArrayList<>(Arrays.asList(1, 6, 10));
 
-        assertTrue(bst.addAll(anotherCollectionToAdd));
+        assertTrue(bst.addAll(anotherArrayList));
         assertEquals(10, bst.size());
         assertTrue(bst.containsAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
 
         //Test throws Null Pointer Exception
-        Collection<Integer> items = Arrays.asList(1, 2, null, 4, 5);
+        ArrayList<Integer> items = new ArrayList<>(Arrays.asList(1, 2, null, 4, 5));
         assertThrows(NullPointerException.class, () -> bst.addAll(items));
     }
 
@@ -146,6 +143,29 @@ class BinarySearchTreeTest {
     }
 
     @org.junit.jupiter.api.Test
+    void testContainsString() {
+        // Create a BinarySearchTree with strings
+        BinarySearchTree<String> bst = new BinarySearchTree<>();
+
+        // Add some strings to the BST
+        assertTrue(bst.add("apple"));
+        assertTrue(bst.add("banana"));
+        assertTrue(bst.add("cherry"));
+
+        // Test contains with existing elements
+        assertTrue(bst.contains("apple"));
+        assertTrue(bst.contains("banana"));
+        assertTrue(bst.contains("cherry"));
+
+        // Test contains with non-existing elements
+        assertFalse(bst.contains("grape"));
+        assertFalse(bst.contains("kiwi"));
+
+        // Test contains with null (should throw NullPointerException)
+        assertThrows(NullPointerException.class, () -> bst.contains(null));
+    }
+
+    @org.junit.jupiter.api.Test
     void containsAll() {
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
@@ -171,7 +191,7 @@ class BinarySearchTreeTest {
         assertFalse(bst.containsAll(Arrays.asList(11, 12, 13)));
 
         //Test throws Null Pointer Exception
-        Collection<Integer> itemsWithNull = Arrays.asList(1, 6, null, 10);
+        ArrayList<Integer> itemsWithNull = new ArrayList<>(Arrays.asList(3, 8, null, 9));
         assertThrows(NullPointerException.class, () -> bst.containsAll(itemsWithNull));
     }
 
@@ -351,7 +371,7 @@ class BinarySearchTreeTest {
         assertNull(bst.root_);
 
         //Test throws Null Pointer Exception
-        Collection<Integer> itemsWithNull = Arrays.asList(1, 6, null, 10);
+        ArrayList<Integer> itemsWithNull = new ArrayList<>(Arrays.asList(1, 6, null, 10));
         assertThrows(NullPointerException.class, () -> bst.removeAll(itemsWithNull));
 
     }

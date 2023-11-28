@@ -36,7 +36,7 @@ public class SpellChecker {
     /**
      * Constructor--creates dictionary from a file.
      *
-     * @param dictionary_file - the File that contains Strings used to build the dictionary
+     * @param dictionaryFile - the File that contains Strings used to build the dictionary
      */
     public SpellChecker(File dictionaryFile) {
         this();
@@ -64,7 +64,7 @@ public class SpellChecker {
     /**
      * Spell-checks a document against the dictionary.
      *
-     * @param document_file - the File that contains Strings to be looked up in the dictionary
+     * @param documentFile - the File that contains Strings to be looked up in the dictionary
      * @return a List of misspelled words
      */
     public List<String> spellCheck(File documentFile) {
@@ -131,5 +131,9 @@ public class SpellChecker {
         System.out.println("Document is " + words);
 
         return words;
+    }
+
+    public BinarySearchTree<String> getDictionary() {
+        return dictionary;
     }
 }

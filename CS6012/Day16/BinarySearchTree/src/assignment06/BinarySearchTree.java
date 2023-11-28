@@ -10,7 +10,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
 
     public class Node {
         T data_;
-
         Node left_, right_;
 
         /**
@@ -154,12 +153,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
         if (current == null) {
             return false;
         }
-
-        if (item == current.data_) {
+        if (item.compareTo(current.data_) == 0) {
             return true;
-        }
-
-        if (item.compareTo(current.data_) < 0) {
+        } else if (item.compareTo(current.data_) < 0) {
             return containsRecursive(current.left_, item);
         } else {
             return containsRecursive(current.right_, item);
@@ -173,16 +169,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
 
     @Override
     public boolean containsAll(Collection<? extends T> items) throws NullPointerException {
-        boolean contains = false;
         for (T item : items) {
             if (item == null) {
                 throw new NullPointerException("Item cannot be null");
             }
-            if (contains(item)) {
-                contains = true;
+            if (!contains(item)) {
+                return false;
             }
         }
-        return contains;
+        return true;
     }
 
     /**
@@ -197,6 +192,13 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
 
         return findMin(root_).data_;
     }
+
+    /**
+     * Helper function, goes down farthest left, is the "min"
+     *
+     * @param node - the node to begin traversing
+     * @return - the minimum node
+     */
 
     private Node findMin(Node node) {
         while (node.left_ != null) {
@@ -307,7 +309,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
      * @param node - node that has the two children
      * @return - the smallest of the two
      */
-
     private T findSmallestValue(Node node) {
         return node.left_ == null ? node.data_ : findSmallestValue(node.left_);
     }
