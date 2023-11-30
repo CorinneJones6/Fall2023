@@ -1,6 +1,12 @@
 package assignment07;
 
-public class GoodHashFunctor implements HashFunctor{
+public class GoodHashFunctor implements HashFunctor {
+    /**
+     * This "Good" Hash Functor follows the formula for djb2 by Dan Bernstein
+     *
+     * @param item - String to hash
+     * @return - the hashcode
+     */
     @Override
     public int hash(String item) {
 

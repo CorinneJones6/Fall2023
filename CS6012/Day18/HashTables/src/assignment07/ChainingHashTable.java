@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class ChainingHashTable implements Set<String> {
-
     private LinkedList<String>[] storage_;
 
     private int size_;
@@ -16,7 +15,7 @@ public class ChainingHashTable implements Set<String> {
 
     /**
      * @param capacity - the size of the created array
-     * @param functor - to use with hashing
+     * @param functor  - to use with hashing
      */
     @SuppressWarnings("unchecked")
     public ChainingHashTable(int capacity, HashFunctor functor) {
@@ -168,11 +167,11 @@ public class ChainingHashTable implements Set<String> {
      */
     @Override
     public boolean removeAll(Collection<? extends String> items) {
-        int origSize=size();
+        int origSize = size();
         for (String s : items) {
             remove(s);
         }
-        int newSize=size();
+        int newSize = size();
         return newSize < origSize;
     }
 
@@ -186,9 +185,14 @@ public class ChainingHashTable implements Set<String> {
 
     /**
      * helper method used in testing
+     *
      * @return - capacity
      */
-    public int getCapacity(){
+    public int getCapacity() {
         return capacity_;
+    }
+
+    public LinkedList<String>[] getStorage_() {
+        return storage_;
     }
 }

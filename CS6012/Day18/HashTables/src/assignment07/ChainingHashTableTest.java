@@ -257,13 +257,10 @@ class ChainingHashTableTest {
         hashTable.add("watermelon");
         hashTable.add("strawberry");
 
-        // After adding these items, the load factor is 6/10 = 0.6, which exceeds the threshold
-        // The growCapacity method should be triggered, and the new capacity should be 2 * 5 = 10
+        // After adding these items, the load factor is =2 which exceeds threshold capacity
         assertEquals(10, hashTable.getCapacity());
 
-        ArrayList<String> arrayList=new ArrayList<>(Arrays.asList("apple", "melon", "strawberry"));
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList("apple", "melon", "strawberry"));
         assertTrue(hashTable.containsAll(arrayList));
-
-
     }
 }
