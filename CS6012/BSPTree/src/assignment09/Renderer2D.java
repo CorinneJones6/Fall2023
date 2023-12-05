@@ -129,7 +129,7 @@ public class Renderer2D extends JPanel {
         }
         currentSegment = 0;
         //each frame we'll draw one more line so we can visualize the traversal
-        timer = new Timer(16, (ActionEvent ae) ->{
+        timer = new Timer(160, (ActionEvent ae) ->{
             currentSegment++;
             if(currentSegment >= orderedSegments.size()){
                 timer.stop();
@@ -147,10 +147,16 @@ public class Renderer2D extends JPanel {
             as.add(new Segment(Math.random(), Math.random(), Math.random(), Math.random()));
         }
 
+//        double y =0;
+//        for (int i=0; i<10; i++){
+//            as.add(new Segment (0, y, 1, y));
+//            y+=.1;
+//        }
+
         BSPTree bt = new BSPTree(as);
 
-        bt.insert(new Segment(0, 0.5, 1, 0.5));
-        bt.insert(new Segment(0.3, 0, 0.3, 1));
+//        bt.insert(new Segment(0, 0.5, 1, 0.5));
+//        bt.insert(new Segment(0.3, 0, 0.3, 1));
 
         SwingUtilities.invokeLater(() -> {
             new Renderer2D(bt);
