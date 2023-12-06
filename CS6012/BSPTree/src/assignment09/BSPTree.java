@@ -31,40 +31,14 @@ public class BSPTree implements SegmentCallback {
     }
 
     /**
-     * Constructor with ArrayList as a parameter, Recursively calls the buildTree method
+     * Constructor with ArrayList as a parameter, loops through calling the "insert" method
      *
      * @param segments ArrayList of Segments to be added to the BSP Tree
      */
     public BSPTree(ArrayList<Segment> segments) {
-//        root_ = buildTree(segments);
-        for(Segment segment : segments){
+        for (Segment segment : segments) {
             insert(segment);
         }
-    }
-
-    private Node buildTree(ArrayList<Segment> segments) {
-        if (segments == null || segments.isEmpty()) {
-            return null;
-        }
-        Segment dividingSegment = segments.get(0);
-        Node node = new Node(dividingSegment);
-        ArrayList<Segment> frontSegments = new ArrayList<>();
-        ArrayList<Segment> backSegments = new ArrayList<>();
-        for (int i = 1;i<segments.size();i++) {
-            Segment segment = segments.get(i);
-            if (segment.whichSide(dividingSegment) > 0) {
-                frontSegments.add(segment);
-            } else if (segment.whichSide(dividingSegment) < 0) {
-                backSegments.add(segment);
-            } else {
-                Segment[] splitResult = segment.split(dividingSegment);
-                frontSegments.add(splitResult[0]);
-                backSegments.add(splitResult[1]);
-            }
-        }
-        node.front_ = buildTree(frontSegments);
-        node.back_ = buildTree(backSegments);
-        return node;
     }
 
     /**
@@ -89,25 +63,35 @@ public class BSPTree implements SegmentCallback {
      * @param currentNode - The current node being considered
      */
     private void insertRecursive(Node currentNode, Segment newSegment) {
+
         if (newSegment.whichSide(currentNode.segment_) < 0) {
+            // If the back subtree is empty, create a new node with the new segment
             if (currentNode.back_ == null) {
                 currentNode.back_ = new Node(newSegment);
             } else {
+                // If the back subtree is not empty, recursively insert the new segment into the back subtree
                 insertRecursive(currentNode.back_, newSegment);
             }
-        } else {
+        } else if (newSegment.whichSide(currentNode.segment_) > 0) {
             if (currentNode.front_ == null) {
                 currentNode.front_ = new Node(newSegment);
             } else {
                 insertRecursive(currentNode.front_, newSegment);
             }
+        } else {
+            // If the new segment is coincident with the current node's segment, perform a split
+            Segment[] splitResult = currentNode.segment_.split(newSegment);
+            if (currentNode.front_ == null) {
+                currentNode.front_ = new Node(splitResult[0]);
+            } else {
+                insertRecursive(currentNode.front_, splitResult[0]);
+            }
+            if (currentNode.back_ == null) {
+                currentNode.back_ = new Node(splitResult[1]);
+            } else {
+                insertRecursive(currentNode.back_, splitResult[1]);
+            }
         }
-//        else {
-//            Segment[] splitResult = currentNode.segment_.split(newSegment);
-//
-//            currentNode.front_ = new Node(splitResult[0]);
-//            currentNode.back_ = new Node(splitResult[1]);
-//        }
     }
 
     /**
@@ -141,11 +125,16 @@ public class BSPTree implements SegmentCallback {
             traverseFarToNearRecursive(currentNode.back_, x, y, callback);
             callback.callback(currentNode.segment_);
             traverseFarToNearRecursive(currentNode.front_, x, y, callback);
-        } else {
+        } else if (side > 0) {
             // Point is on the - side, traverse the front subtree first
             traverseFarToNearRecursive(currentNode.front_, x, y, callback);
             callback.callback(currentNode.segment_);
             traverseFarToNearRecursive(currentNode.back_, x, y, callback);
+        } else {
+            // Handle coincident segments
+            callback.callback(currentNode.segment_);
+            traverseFarToNearRecursive(currentNode.back_, x, y, callback);
+            traverseFarToNearRecursive(currentNode.front_, x, y, callback);
         }
     }
 
@@ -155,7 +144,7 @@ public class BSPTree implements SegmentCallback {
      * @param query - The query segment to check for collision
      * @return The colliding segment, or null if no collision is found
      */
-    Segment collision(Segment query) {
+    public Segment collision(Segment query) {
         return collision(root_, query);
     }
 
@@ -171,10 +160,6 @@ public class BSPTree implements SegmentCallback {
             return null;
         }
 
-        if (query.intersects(currentNode.segment_)) {
-            return currentNode.segment_;
-        }
-
         int side = query.whichSide(currentNode.segment_);
 
         if (side < 0) {
@@ -182,11 +167,16 @@ public class BSPTree implements SegmentCallback {
         } else if (side > 0) {
             return collision(currentNode.front_, query);
         } else {
-            Segment leftCollision = collision(currentNode.back_, query);
-            if (leftCollision != null) {
-                return leftCollision;
+            // Handle coincident segments
+            if (query.intersects(currentNode.segment_)) {
+                return currentNode.segment_;
             } else {
-                return collision(currentNode.front_, query);
+                Segment leftCollision = collision(currentNode.back_, query);
+                if (leftCollision != null) {
+                    return leftCollision;
+                } else {
+                    return collision(currentNode.front_, query);
+                }
             }
         }
     }

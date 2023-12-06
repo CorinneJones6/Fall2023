@@ -147,11 +147,11 @@ public class Renderer2D extends JPanel {
             as.add(new Segment(Math.random(), Math.random(), Math.random(), Math.random()));
         }
 
-//        double y =0;
-//        for (int i=0; i<10; i++){
-//            as.add(new Segment (0, y, 1, y));
-//            y+=.1;
-//        }
+        double y =0;
+        for (int i=0; i<10; i++){
+            as.add(new Segment (0, y, 1, y));
+            y+=.1;
+        }
 
         BSPTree bt = new BSPTree(as);
 
