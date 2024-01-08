@@ -2,6 +2,7 @@ package com.example.androidchatclient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -83,6 +84,12 @@ public class ChatRoomPage extends AppCompatActivity {
             // Clear the message input field after sending
             messageFld.setText("");
         }
+    }
+
+    public void handleLeave (View view){
+        ws.sendText( "leave:" + username + ":" + room);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public String getUsername(){

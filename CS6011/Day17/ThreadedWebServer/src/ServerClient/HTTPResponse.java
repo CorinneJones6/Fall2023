@@ -31,7 +31,7 @@ public class HTTPResponse {
         }
         outStream.write("\n".getBytes());
 //        fileStream.transferTo(outStream);
-        for( int i = 0; i < file.length(); i++ ) {
+        for( int i = 0; i < file.length();  i++ ) {
             outStream.write( fileStream.read() );
             outStream.flush();
             // Thread.sleep( 10 ); // Maybe add <- if images are still loading too quickly...
@@ -48,7 +48,7 @@ public class HTTPResponse {
         outStream.write("HTTP/1.1 200 OK\n".getBytes());
         outStream.write("Content-type: text/html\n".getBytes());
         outStream.write("\n".getBytes());
-//        failFileStream.transferTo(outStream);
+        failFileStream.transferTo(outStream);
         outStream.flush();
         outStream.close();
 

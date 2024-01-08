@@ -17,62 +17,59 @@ public class WebBrowser {
     }
 
     /**
-     *
-     * @param history
+     * @param history - added to the backStack
      */
     public WebBrowser(SinglyLinkedList<URL> history) {
         backStack_ = history;
         frontStack_ = new LinkedListStack<>();
+        if(!history.isEmpty()) {
+            currentWebpage_ = backStack_.deleteFirst();
+        }
     }
 
     /**
-     *
-     * @param webpage
+     * @param webpage - add the webpage to the backStack
      */
     public void visit(URL webpage) {
-
-        backStack_.insertFirst(webpage);
+        if(currentWebpage_!=null) {
+            backStack_.insertFirst(currentWebpage_);
+        }
         frontStack_.clear();
-
+        currentWebpage_=webpage;
     }
 
     /**
-     *
-     * @return
-     * @throws NoSuchElementException
+     * @return - the previous URL visited
+     * @throws NoSuchElementException - if there isn't a previous URL
      */
     public URL back() throws NoSuchElementException {
         if (backStack_.isEmpty()) {
             throw new NoSuchElementException("No webpage history.");
         }
+        frontStack_.push(currentWebpage_);
 
         currentWebpage_ = backStack_.deleteFirst();
 
-        frontStack_.push(currentWebpage_);
-
-        return backStack_.getFirst();
+        return currentWebpage_;
     }
 
     /**
-     *
-     * @return
-     * @throws NoSuchElementException
+     * @return - the forward URL
+     * @throws NoSuchElementException - if the forward URL doesn't exist
      */
     public URL forward() throws NoSuchElementException {
-        if (backStack_.isEmpty()) {
+        if (frontStack_.isEmpty()) {
             throw new NoSuchElementException("No webpage history.");
         }
+        backStack_.insertFirst(currentWebpage_);
 
-        URL forwardURL = frontStack_.pop();
+        currentWebpage_=frontStack_.pop();
 
-        backStack_.insertFirst(forwardURL);
-
-        return forwardURL;
+        return currentWebpage_;
     }
 
     /**
-     *
-     * @return
+     * @return - all the items on the backStack
      */
     public SinglyLinkedList<URL> history() {
         return backStack_;

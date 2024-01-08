@@ -14,13 +14,8 @@ public class SinglyLinkedList<E> implements List<E> {
         Node next_;
 
         /**
-         * first Node constructor if no params given
-         */
-        private Node() {
-        }
-
-        /**
-         * second Node constructor
+         * Node constructor
+         *
          * @param elem - makes the node value the elem if specified
          */
         public Node(E elem) {
@@ -38,9 +33,11 @@ public class SinglyLinkedList<E> implements List<E> {
 
     /**
      * second SinglyLinkedList constructor
+     *
      * @param arr - takes in array, turns into SinglyLinkedList
      */
     public SinglyLinkedList(ArrayList<E> arr) {
+        //todo don't need the tail
         for (var x : arr) {
 
             if (head_ == null) {
@@ -56,39 +53,36 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @param element - the element to add in the first position of the SinglyLinkedList
      */
     @Override
     public void insertFirst(E element) {
-        Node newNode = new Node();
-        newNode.value_ = element;
+        Node newNode = new Node(element);
         newNode.next_ = head_;
         head_ = newNode;
         size_++;
     }
 
     /**
-     *
-     * @param index - the specified position
+     * @param index   - the specified position
      * @param element - the element to add
      * @throws IndexOutOfBoundsException - if attempt to insert out of bounds
      */
     @Override
     public void insert(int index, E element) throws IndexOutOfBoundsException {
-        //todo what if it is the last element?
+
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("index is beyond list range");
         }
 
         if (index == 0) {
             insertFirst(element);
-        } else {
+        }
+        else {
 
             size_++;
 
-            Node newNode = new Node();
-            newNode.value_ = element;
+            Node newNode = new Node(element);
 
             Node currentNode = head_;
 
@@ -99,11 +93,9 @@ public class SinglyLinkedList<E> implements List<E> {
             newNode.next_ = currentNode.next_;
             currentNode.next_ = newNode;
         }
-
     }
 
     /**
-     *
      * @return - the value of the head node
      * @throws NoSuchElementException - if there is no head node
      */
@@ -116,7 +108,6 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @param index - the specified position
      * @return - the node value at the specified index
      * @throws IndexOutOfBoundsException - if attempt to insert out of bounds
@@ -135,13 +126,11 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @return - the deleted node (first node) value
      * @throws NoSuchElementException - if there is no head node
      */
     @Override
     public E deleteFirst() throws NoSuchElementException {
-
         if (head_ == null) {
             throw new NoSuchElementException("List is empty");
         }
@@ -154,14 +143,12 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @param index - the specified position
      * @return - the deleted nodes value
      * @throws IndexOutOfBoundsException - if attempt to insert out of bounds
      */
     @Override
     public E delete(int index) throws IndexOutOfBoundsException {
-
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size());
         }
@@ -184,7 +171,6 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @param element - the element to search for
      * @return - the index of a specified element, -1 if not found
      */
@@ -205,7 +191,6 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @return the int size member variable
      */
     @Override
@@ -214,7 +199,6 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @return true/false if the boolean is empty
      */
     @Override
@@ -228,12 +212,10 @@ public class SinglyLinkedList<E> implements List<E> {
     @Override
     public void clear() {
         head_ = null;
-        tail_ = null;
         size_ = 0;
     }
 
     /**
-     *
      * @return the SinglyLinkedList as an array
      */
     @Override
@@ -252,7 +234,6 @@ public class SinglyLinkedList<E> implements List<E> {
     }
 
     /**
-     *
      * @return - the iterator implemented below
      */
     @Override
@@ -266,7 +247,6 @@ public class SinglyLinkedList<E> implements List<E> {
         boolean canDelete = false;
 
         /**
-         *
          * @return - true/false depending on if there is another node
          */
         @Override
@@ -275,12 +255,10 @@ public class SinglyLinkedList<E> implements List<E> {
         }
 
         /**
-         *
          * @return - the value of the next node
          */
         @Override
         public E next() {
-
             if (!hasNext()) {
                 throw new NoSuchElementException("No more elements exist in the set");
             }
@@ -296,7 +274,6 @@ public class SinglyLinkedList<E> implements List<E> {
          */
         @Override
         public void remove() {
-
             if (!canDelete) {
                 throw new IllegalStateException("No more elements to iterate over");
             }
@@ -312,6 +289,5 @@ public class SinglyLinkedList<E> implements List<E> {
                 canDelete = false;
             }
         }
-
     }
 }

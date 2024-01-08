@@ -19,7 +19,7 @@ public class Main {
             //Create a response object
             Thread thread = new Thread(new MyRunnable(client));
 
-            thread.start(); 
+            thread.start();
 
         }
     }

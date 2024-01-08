@@ -5,6 +5,9 @@ import java.io.*;
 import ServerClient.HTTPRequest;
 import ServerClient.HTTPResponse;
 
+//Corinne Jones
+//HTTP Refactoring Assignment
+
 public class Main {
     public static void main(String[] args) throws IOException {
     //initializes a ServerSocket

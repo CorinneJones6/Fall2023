@@ -69,6 +69,7 @@ function drawPokeBalls(){
     }
 }
 
+//checks for a collision 
 function collisionCheck() {
     for (let i = 0; i < 6; i++) {
         if (
@@ -82,6 +83,7 @@ function collisionCheck() {
     }
 }
 
+//handles the continue of the game or the end of game 
 function drawAnimation(){
     if (!endOfGame){
         window.requestAnimationFrame(animateGame);
@@ -91,6 +93,7 @@ function drawAnimation(){
     }
 }
 
+//
 function handleEndOfGame(){
     // alert("You lost, keep pressing enter until the game restarts");
     // const endText=document.getElementById("displayText"); 
@@ -109,6 +112,7 @@ function handleEndOfGame(){
       })
 }
 
+//writes the game over text when the 
 function writeToElementById(id, text) {
     const element = document.getElementById(id);
     if (element) {
@@ -116,6 +120,7 @@ function writeToElementById(id, text) {
     }
 }
 
+//clears the game over text when the game resumes
 function clearElementById(id) {
     const element = document.getElementById(id);
     if (element) {
@@ -138,23 +143,27 @@ function clearElementById(id) {
 //     }
 // }
 
+//animates the game
 function mainDrawing() {
     window.requestAnimationFrame(animateGame);
 }
 
+//replaces the old objects with white
 function eraseOld() {
     context.fillStyle = "white";
     context.fillRect(0, 0, cWidth, cHeight);
 }
 
+//handles the mouse moving with the pikaimg
 function handleMouseMove(e) {
     pikaImg.xPos = e.x-30;
     pikaImg.yPos = e.y-50;
 }
 
-
+//calls the game animation to start when the window loads
 window.onload = mainDrawing;
 
+//calls the document to handle the mouse moving
 document.onmousemove = handleMouseMove; 
 
 

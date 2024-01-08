@@ -191,7 +191,11 @@ public class ChainingHashTable implements Set<String> {
     public int getCapacity() {
         return capacity_;
     }
-
+    /**
+     * helper method used in timing tests
+     *
+     * @return - storage
+     */
     public LinkedList<String>[] getStorage_() {
         return storage_;
     }

@@ -104,14 +104,13 @@ public class Fraction implements Comparable<Fraction> {
        return n/d;
     }
 
-
     @Override
     public int compareTo(Fraction rhs) {
 
-        if ((this.minus(rhs)).toDouble()>=0){
+        if ((minus(rhs)).toDouble()>=0){
             return 1;
         }
-        else if((this.minus(rhs)).toDouble()<=0){
+        else if((minus(rhs)).toDouble()<=0){
             return -1;
         }
         return 0;

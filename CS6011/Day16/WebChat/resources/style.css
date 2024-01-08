@@ -56,6 +56,13 @@ h1 {
   color: var(--accent-color-3); 
 }
 
+.par{
+  font-family: "Open Sans", sans-serif;
+  color: var(--main-bg-color);
+  font-weight: bold; /* Make the text bold */
+  text-decoration: underline;
+}
+
 body {
   background-image: url("background.png");
   margin: 0;

@@ -82,6 +82,7 @@ public class SynthesizeApplication extends Application {
         whitenoiseBtn.setOnAction(this::createWhiteNoiseComponent);
         squarewaveBtn.setOnAction(this::createSquareWaveComponent);
         trianglewaveBtn.setOnAction(this::createTriangleWaveComponent);
+
         //Filter Widget Actions
         volumeBtn.setOnAction(this::createVolumeComponent);
         reverbBtn.setOnAction(this::createReverbComponent);

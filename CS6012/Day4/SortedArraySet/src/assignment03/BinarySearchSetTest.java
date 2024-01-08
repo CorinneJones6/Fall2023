@@ -345,6 +345,7 @@ class BinarySearchSetTest {
         iterator.remove();
         // Now "yellow" should be removed from the set
         assertFalse(testRemoveIterator.contains("yellow"));
+//        assertThrows(IllegalStateException.class, iterator::remove);
     }
 
     //=================END OF ITERATOR TESTS===================//

@@ -62,7 +62,6 @@ public class HTTPRequest {
                 fileType_ = parameter_.substring(i + 1);
                 System.out.println(fileType_);
             }
-
         }
     }
 }

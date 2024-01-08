@@ -1,4 +1,5 @@
 package assignment05;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -82,11 +83,10 @@ class WebBrowserTest {
         chromeHistory = chrome.history();
         var chromeIterator = chromeHistory.iterator();
         var id = 3;
-        while(chromeIterator.hasNext()){
+        while (chromeIterator.hasNext()) {
             var x = chromeIterator.next();
-            assertEquals("https://"+id--, x.toString());
+            assertEquals("https://" + id--, x.toString());
         }
-
 
 
         //TEST Constructor 2 for creating a new web browser with a preloaded history
@@ -95,9 +95,9 @@ class WebBrowserTest {
         var safariIterator = chromeHistory.iterator();
         var s_id = 3;
 
-        while(safariIterator.hasNext()){
+        while (safariIterator.hasNext()) {
             var x = safariIterator.next();
-            assertEquals("https://"+s_id--, x.toString());
+            assertEquals("https://" + s_id--, x.toString());
         }
 
     }
@@ -106,7 +106,7 @@ class WebBrowserTest {
 
         System.out.println("History List:");
         var iterator = history.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             var x = iterator.next();
             System.out.println(x.toString());
         }

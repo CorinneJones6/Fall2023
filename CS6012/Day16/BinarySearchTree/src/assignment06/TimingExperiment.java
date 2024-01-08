@@ -21,7 +21,7 @@ public class TimingExperiment {
         while (System.nanoTime() - startTime < 1_000_000_000)
             ;
 
-        try (FileWriter fw = new FileWriter(new File("BSTTree_experiment.tsv"), false)) { // open up a file writer so we can write
+        try (FileWriter fw = new FileWriter(new File("RandomSortedOrder_experiment.tsv"), false)) { // open up a file writer so we can write
             // to file.
 
             for (int size = beginning; size <= end; size+=increment) { // This is used as the exponent to calculate the size of the set.
@@ -30,22 +30,17 @@ public class TimingExperiment {
                 // Do the experiment multiple times, and average out the results
                 long totalTime = 0;
 
-                ArrayList<Integer> rando = new ArrayList<>();
-                Random random = new Random();
-
                 for (int iter = 0; iter < ITER_COUNT; iter++) {
                     // SET UP!
-                    for (int i = 0; i < size; i++) {
-                        rando.add(i);
-                    }
+                    ArrayList<Integer> set = new ArrayList<>();
 
-                    for(int k = 0; k < size; k++){
-                        rando.set(k, rando.get(random.nextInt(size)));
+                    for (int i = 0; i < size; i++) {
+                        set.add(i);
                     }
 
                     BinarySearchTree<Integer> bst = new BinarySearchTree<>();
 
-                    bst.addAll(rando);
+                    bst.addAll(set);
 
                     // TIME IT!
                     long start = System.nanoTime();
@@ -58,7 +53,7 @@ public class TimingExperiment {
                     totalTime += stop - start;
                 }
 
-                double bstOrder = totalTime / (double) ITER_COUNT;
+                double sortedOrder = totalTime / (double) ITER_COUNT;
 
 /**
  * Adding in random order
@@ -66,7 +61,7 @@ public class TimingExperiment {
                 totalTime=0;
 
                 ArrayList<Integer> randList = new ArrayList<>();
-                Random rand= new Random();
+                Random random = new Random();
 
                 for (int iter = 0; iter < ITER_COUNT; iter++) {
                     // SET UP!
@@ -75,26 +70,28 @@ public class TimingExperiment {
                     }
 
                     for(int k = 0; k < size; k++){
-                        randList.set(k, randList.get(rand.nextInt(size)));
+                        randList.set(k, randList.get(random.nextInt(size)));
                     }
 
-                    TreeSet<Integer> treeSet = new TreeSet<>(randList);
+                    BinarySearchTree<Integer> bst2 = new BinarySearchTree<>();
+
+                    bst2.addAll(randList);
 
                     // TIME IT!
                     long start = System.nanoTime();
 
-                    for(int i=0; i<treeSet.size(); i++) {
-                        treeSet.contains(i);
+                    for(int i=0; i<bst2.size(); i++) {
+                        bst2.contains(i);
                     }
 
                     long stop = System.nanoTime();
                     totalTime += stop - start;
                 }
 
-                double treeSetOrder=totalTime/(double) ITER_COUNT;
+                double randomOrder=totalTime/(double) ITER_COUNT;
 
 
-                var output=size + "," + treeSetOrder + "," + bstOrder  + "\r\n";
+                var output=size + "," + sortedOrder + "," + randomOrder  + "\r\n";
                 System.out.println(output); // print to console
                 fw.write(output); // write to file.
             }

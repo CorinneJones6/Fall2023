@@ -2,28 +2,23 @@ package assignment05;
 
 import java.util.NoSuchElementException;
 
-public class LinkedListStack <E> implements Stack <E>{
+public class LinkedListStack<E> implements Stack<E> {
     private SinglyLinkedList<E> list_;
-    private int size_;
 
     public LinkedListStack() {
         list_ = new SinglyLinkedList<>();
-        size_ = 0;
     }
 
     /**
-     *
+     * removes all elements from the list
      */
     @Override
     public void clear() {
         list_.clear();
-        size_=0;
-
     }
 
     /**
-     *
-     * @return
+     * @return a boolean if the list is empty
      */
     @Override
     public boolean isEmpty() {
@@ -31,7 +26,6 @@ public class LinkedListStack <E> implements Stack <E>{
     }
 
     /**
-     *
      * @return - the value of the first/top element
      * @throws NoSuchElementException - if there is no head node
      */
@@ -44,7 +38,6 @@ public class LinkedListStack <E> implements Stack <E>{
     }
 
     /**
-     *
      * @return - the value of the removed element, i.e., the first/top element
      * @throws NoSuchElementException - if there is no head node
      */
@@ -53,26 +46,22 @@ public class LinkedListStack <E> implements Stack <E>{
         if (isEmpty()) {
             throw new NoSuchElementException("Stack is empty");
         }
-        size_--;
         return list_.deleteFirst();
     }
 
     /**
-     *
      * @param element - the element to be added to the first/top
      */
     @Override
     public void push(E element) {
         list_.insertFirst(element);
-        size_++;
     }
 
     /**
-     *
      * @return - the LinkedListStack size
      */
     @Override
     public int size() {
-        return size_;
+        return list_.size();
     }
 }

@@ -143,9 +143,9 @@ public class Renderer2D extends JPanel {
     public static void main(String[] args) {
 
         ArrayList<Segment> as = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            as.add(new Segment(Math.random(), Math.random(), Math.random(), Math.random()));
-        }
+//        for (int i = 0; i < 40; i++) {
+//            as.add(new Segment(Math.random(), Math.random(), Math.random(), Math.random()));
+//        }
 
         double y =0;
         for (int i=0; i<10; i++){

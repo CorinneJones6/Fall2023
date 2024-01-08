@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +13,6 @@ class SinglyLinkedListTest {
 
     @org.junit.jupiter.api.Test
     void insertFirst() {
-
         SinglyLinkedList<String> stringLinkedList = new SinglyLinkedList<>();
         stringLinkedList.insertFirst("Third");
         assertEquals("Third", stringLinkedList.getFirst());
@@ -23,12 +23,10 @@ class SinglyLinkedListTest {
 
         assertEquals("First", stringLinkedList.getFirst());
         assertEquals(3, stringLinkedList.size());
-
     }
 
     @org.junit.jupiter.api.Test
     void insert() {
-
         ArrayList<Integer> integerList = new ArrayList<>(Arrays.asList(1, 2, 4, 5, 6));
 
         SinglyLinkedList<Integer> insertList = new SinglyLinkedList<>(integerList);
@@ -40,12 +38,10 @@ class SinglyLinkedListTest {
         insertList.insert(0, 0);
 
         assertEquals(0, insertList.get(0));
-
     }
 
     @org.junit.jupiter.api.Test
     void getFirst() {
-
         ArrayList<String> stringArrayList = new ArrayList<>(Arrays.asList("apple", "banana", "cucumber", "dates"));
         SinglyLinkedList<String> stringLinkedList = new SinglyLinkedList<>(stringArrayList);
 
@@ -54,12 +50,10 @@ class SinglyLinkedListTest {
 
         assertEquals("apple", stringLinkedList.getFirst());
         assertEquals(1, integerLinkedList.getFirst());
-
     }
 
     @org.junit.jupiter.api.Test
     void get() {
-
         ArrayList<String> stringArrayList = new ArrayList<>(Arrays.asList("apple", "banana", "cucumber", "dates"));
         SinglyLinkedList<String> stringLinkedList = new SinglyLinkedList<>(stringArrayList);
 
@@ -76,7 +70,6 @@ class SinglyLinkedListTest {
 
     @org.junit.jupiter.api.Test
     void deleteFirst() {
-
         ArrayList<String> stringArrayList = new ArrayList<>(Arrays.asList("apple", "banana", "cucumber", "dates"));
         SinglyLinkedList<String> stringLinkedList = new SinglyLinkedList<>(stringArrayList);
 
@@ -87,7 +80,6 @@ class SinglyLinkedListTest {
         integerLinkedList.deleteFirst();
         assertEquals("banana", stringLinkedList.getFirst());
         assertEquals(2, integerLinkedList.getFirst());
-
     }
 
     @org.junit.jupiter.api.Test
@@ -109,7 +101,6 @@ class SinglyLinkedListTest {
 
         assertEquals(integerLinkedList.get(2), integerLinkedList.delete(2));
         assertEquals(4, integerLinkedList.size());
-
     }
 
     @org.junit.jupiter.api.Test
@@ -150,12 +141,23 @@ class SinglyLinkedListTest {
         SinglyLinkedList<String> oneLinkedList = new SinglyLinkedList<>(oneArrayList);
 
         assertFalse(oneLinkedList.isEmpty());
-
-
     }
 
     @org.junit.jupiter.api.Test
     void clear() {
+        LinkedListStack<Integer> stack = new LinkedListStack<>();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        assertFalse(stack.isEmpty());
+        assertEquals(3, stack.size());
+
+        stack.clear();
+
+        assertTrue(stack.isEmpty());
+        assertEquals(0, stack.size());
+        assertThrows(NoSuchElementException.class, stack::peek);
     }
 
     @org.junit.jupiter.api.Test
@@ -169,7 +171,6 @@ class SinglyLinkedListTest {
         for (int i = 0; i < toArrayResult.length; i++) {
             assertEquals(expectedResult[i], toArrayResult[i]);
         }
-
     }
 
     @org.junit.jupiter.api.Test
@@ -235,7 +236,6 @@ class SinglyLinkedListTest {
         for (int i = 0; i < testRemoveIterator.size(); i++) {
             System.out.println(testRemoveIterator.get(i));
         }
-
         assertEquals(-1, testRemoveIterator.indexOf("yellow"));
         assertEquals(4, testRemoveIterator.size());
     }
@@ -247,8 +247,6 @@ class SinglyLinkedListTest {
         list.insertFirst(2);
         list.insertFirst(3);
         list.insertFirst(4);
-
-//        SinglyLinkedList.MyIterator iterator = (SinglyLinkedList.MyIterator) list.iterator();
 
         Iterator<Integer> iterator = list.iterator();
 

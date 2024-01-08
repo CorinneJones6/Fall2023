@@ -29,4 +29,5 @@
 ## obnoxious file that has thumbnails and stuff
 .DS_Store
 
-*.o
+**.o
+**../Day1

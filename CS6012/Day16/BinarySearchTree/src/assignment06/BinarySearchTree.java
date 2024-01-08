@@ -86,18 +86,22 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
                 current.left_ = new Node(item);
                 size_++;
                 return true;
-            } else {
+            }
+            else {
                 return addRecursive(current.left_, item);
             }
-        } else if (item.compareTo(current.data_) > 0) {
+        }
+        else if (item.compareTo(current.data_) > 0) {
             if (current.right_ == null) {
                 current.right_ = new Node(item);
                 size_++;
                 return true;
-            } else {
+            }
+            else {
                 return addRecursive(current.right_, item);
             }
-        } else {
+        }
+        else {
             return false;
         }
     }
@@ -123,6 +127,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
         return newSize > oldSize;
     }
 
+    /**
+     * Set the root to null and the size to 0
+     */
     @Override
     public void clear() {
         root_ = null;
@@ -273,21 +280,24 @@ public class BinarySearchTree<T extends Comparable<? super T>> implements Sorted
         if (current == null) {
             return null;
         }
-
+        // If the item to be removed is found in the current node
         if (item.compareTo(current.data_) == 0) {
-
+            //Node has no children
             if (current.left_ == null && current.right_ == null) {
                 size_--;
                 return null;
             }
+            //Node has no right child
             if (current.right_ == null) {
                 size_--;
                 return current.left_;
             }
+            // Node has no left child
             if (current.left_ == null) {
                 size_--;
                 return current.right_;
             }
+            // Node has both left and right children, find smallest value to replace current node
             T smallestValue = findSmallestValue(current.right_);
             current.data_ = smallestValue;
             current.right_ = removeRecursive(current.right_, smallestValue);

@@ -179,7 +179,6 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
     public E[] toArray() {
         // Create a new array to avoid modifying the internal set_
         E[] arrayCopy = Arrays.copyOf(set_, size_);
-//        E[] arrayCopy=(E[]) new Object[size_];
 
         // Return the copied array
         return arrayCopy;
@@ -244,6 +243,7 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
     class MyIterator implements Iterator<E> {
 
         private int position; // Position variable to keep track of the iterators current position
+        boolean canRemove=false;
 
         @Override
         public boolean hasNext() {
@@ -259,21 +259,28 @@ public class BinarySearchSet<E> implements SortedSet<E>, Iterable<E> {
             if (!hasNext()) {
                 throw new NoSuchElementException("No more elements to iterate over");
             }
+
+            var val=set_[position];
+            position++;
+            canRemove=true;
             // Get the element at the current position, then increase the position
-            return get(position++);
+            return val;
         }
 
         @Override
         public void remove() {
             // Remove the last element retrieved by the iterator
-            if (position == 0 || position > size_ + 1) {
-                throw new NoSuchElementException("No more elements to iterate over");
+            if (!canRemove) {
+                throw new IllegalStateException("No more elements to iterate over");
             }
             // Get the element at the current position minus one, since next automatically increments
             E obj = get(position - 1);
-
-            // Remove the element from the BinarySearchSet using the outer class remove method
-            BinarySearchSet.this.remove(obj);
+            position--;
+            size_--;
+            canRemove=false;
+            for (int i=position; i<size_; i++){
+                set_[i]=set_[i+1];
+            }
         }
 
     }

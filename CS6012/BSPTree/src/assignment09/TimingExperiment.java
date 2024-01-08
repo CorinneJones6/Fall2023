@@ -9,17 +9,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class TimingExperiment {
-    static int count;
-    public static int newCollision(Segment query, BSPTree tree) {
-
-        tree.traverseFarToNear(0.5, 0.5, //they don't matter
-                (segment) -> {
-                    if(segment.intersects(query)){
-                        count++;
-                    }
-    });
-        return count;
-    }
 
     //initializing the iteration count to 100
     private static final int ITER_COUNT = 100;
@@ -30,7 +19,7 @@ public class TimingExperiment {
         int increment=1000;
 
         //set up the filewriter to hold the data
-        try (FileWriter fw = new FileWriter(new File("CollisionDetection.tsv"))) {
+        try (FileWriter fw = new FileWriter(new File("BSPconstruction.tsv"))) {
 
             //setting up the size of each experiment - initially 2^10 and goes up to 2^20
             for (int size = beginning; size <= end; size+=increment) {
@@ -42,20 +31,13 @@ public class TimingExperiment {
 
 
                 ArrayList<Segment> as = new ArrayList<>();
-                Random rand = new Random(42);
 
                 double y =0;
                 for (int i=0; i<size; i++){
-                    as.add(new Segment (rand.nextDouble(), rand.nextDouble(), rand.nextDouble(), rand.nextDouble()));
+                    as.add(new Segment (0, y, 1, y));
                     y+=.01;
                 }
 
-                BSPTree bspTree = new BSPTree(as);
-
-                Segment query = new Segment(0.5, 0, .5, 1);
-
-
-                int numCollisions=0;
 
                 //start loop
                 for (int iter = 0; iter < ITER_COUNT; iter++) {
@@ -64,18 +46,15 @@ public class TimingExperiment {
                     long start = System.nanoTime();
 
                     //execute the contains function
-                   var elem = bspTree.collision(query);
+                    BSPTree bsp = new BSPTree(as);
 
                     //stop the timer (get the end time)
                     long stop = System.nanoTime();
                     //get the total time (stop time - start time = execution time)
                     totalTime += stop - start;
-                    if(elem!=null){
-                        numCollisions++;
-                    }
                 }
                 //get the average time from all 100 experiments per sample size
-                double optimizedTime = totalTime / (double) ITER_COUNT;
+                double bulkTime = totalTime / (double) ITER_COUNT;
 
 
 
@@ -83,14 +62,17 @@ public class TimingExperiment {
 
                 totalTime=0;
 
-                numCollisions=0;
-
                 for (int iter = 0; iter < ITER_COUNT; iter++) {
 
                     //start the timer (get the start time)
                     long start = System.nanoTime();
 
-                   numCollisions+=newCollision(query, bspTree);
+                    BSPTree oneAtTime=new BSPTree();
+
+                    //execute the contains function
+                    for (Segment a : as) {
+                        oneAtTime.insert(a);
+                    }
 
                     //stop the timer (get the end time)
                     long stop = System.nanoTime();
@@ -99,12 +81,12 @@ public class TimingExperiment {
                 }
 
                 //get the average time from all 100 experiments per sample size
-                double notOpt = totalTime / (double) ITER_COUNT;
+                double oneAtTime = totalTime / (double) ITER_COUNT;
 
 
                 //write to the console and to a file what the average time was for each sample size
 
-                var output = (size + "," + optimizedTime + "," + notOpt + "\r\n");
+                var output = (size + "," + bulkTime + "," + oneAtTime);
                 System.out.println(output);
                 fw.write(output);
             }

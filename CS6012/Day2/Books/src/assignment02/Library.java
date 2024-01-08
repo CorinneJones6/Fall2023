@@ -294,9 +294,11 @@ public class Library<T> {
      * Returns a negative value if lhs is smaller than rhs. Returns a positive
      * value if lhs is larger than rhs. Returns 0 if lhs 	and rhs are equal.
      */
+    @Override
     public int compare(LibraryBook<T> lhs,
                        LibraryBook<T> rhs) {
       return (int) (lhs.getIsbn() - rhs.getIsbn()); //cast a long to an integer
+      //TODO change this to math.signum since this will cut off some of the numbers
     }
   }
 
@@ -306,11 +308,12 @@ public class Library<T> {
    */
   protected class OrderByAuthor implements
           Comparator<LibraryBook<T>> {
+    @Override
     public int compare(LibraryBook<T> lhs,
                        LibraryBook<T> rhs){
      int res = lhs.getAuthor().compareTo(rhs.getAuthor());
      if(res == 0){
-       return lhs.getTitle().compareTo(rhs.getTitle()); //enters this loop in case of a tie breaker
+       return lhs.getTitle().compareTo(rhs.getTitle()); //enters this loop in case of a tiebreaker
      }
      else {
        return res;
@@ -324,7 +327,7 @@ public class Library<T> {
    */
   protected class OrderByDueDate implements
           Comparator<LibraryBook<T>> {
-
+    @Override
     public int compare(LibraryBook<T> lhs, LibraryBook<T> rhs) {
 
       return lhs.getDueDate().compareTo(rhs.getDueDate());

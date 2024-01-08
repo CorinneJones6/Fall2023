@@ -79,7 +79,7 @@ function mainFunc(){
     //Test Arrays 
     let intTestArr =[2, 1, 5, 4, 3];
     let fltTestArr=[1.3, 1.4, 1.1, 1.2, 1.5]; 
-    let strTestArr=["Def","Abc","Cde", "Bcd"]; 
+    let strTestArr=["Def","abc","Cde", "Bcd"]; 
     let ranTestArr=["Corinne", 28, 4.0]; 
 
     selectionSort(intTestArr);
@@ -104,6 +104,9 @@ function mainFunc(){
 
     //This will sort by first name, then last name
     persArr1.sort(sortByFirstName);
+    // persArr1.selectionSort(sortByFirstName);
+    // selectionSort(sortByFirstName(persArr1));
+    // sortByFirstName(selectionSort(persArr1)); 
 
     console.log(persArr1); 
     
@@ -116,6 +119,7 @@ function mainFunc(){
 
     //This will sort by last name, then first name
     persArr2.sort(sortByLastName);  
+    // persArr2.selectionSort(sortByLastName); 
 
     console.log(persArr2);
 

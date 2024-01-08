@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2cba39de-077f-43b7-a373-ee5688fef96c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day12/NotTheBees/NotThePokeBallJS.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Day12/NotTheBees/NotThePokeBallJS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day12/Sorting/sortingjs.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Day12/Sorting/sortingjs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day16/WebChat/resources/WebChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Day16/WebChat/resources/WebChat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day16/WebChat/resources/chat.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Day16/WebChat/resources/chat.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day16/WebChat/resources/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../Day16/WebChat/resources/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day17/ThreadedWebServer/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day17/ThreadedWebServer/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day17/ThreadedWebServer/src/ServerClient/HTTPRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day17/ThreadedWebServer/src/ServerClient/HTTPRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day17/ThreadedWebServer/src/ServerClient/HTTPResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day17/ThreadedWebServer/src/ServerClient/HTTPResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day18/WebSocketEchos/Resources/WebChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Day18/WebSocketEchos/Resources/WebChat.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day22/AndroidChatClient/app/src/main/java/com/example/androidchatclient/ChatRoomPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day22/AndroidChatClient/app/src/main/java/com/example/androidchatclient/ChatRoomPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day22/AndroidChatClient/app/src/main/res/layout/activity_chat_room_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day22/AndroidChatClient/app/src/main/res/layout/activity_chat_room_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day22/AndroidChatClientFinal/app/src/main/java/com/example/androidchatclient/ChatRoomPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day22/AndroidChatClientFinal/app/src/main/java/com/example/androidchatclient/ChatRoomPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day22/AndroidChatClientFinal/app/src/main/java/com/example/androidchatclient/MyWebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day22/AndroidChatClientFinal/app/src/main/java/com/example/androidchatclient/MyWebSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day22/AndroidChatClientFinal/app/src/main/res/layout/activity_chatroom_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Day22/AndroidChatClientFinal/app/src/main/res/layout/activity_chatroom_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day4/MyHTTPServer/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day4/MyHTTPServer/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Day6/Synthesizer/src/main/java/com/example/synthesizer/SynthesizeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Day6/Synthesizer/src/main/java/com/example/synthesizer/SynthesizeApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Fractions/src/Fraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Fractions/src/Fraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab2/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Assignment09 Analysis Document.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/BSPTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/BSPTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/BSPTreeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/BSPTreeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/Renderer2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/Renderer2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/TimingExperiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/BSPTree/src/assignment09/TimingExperiment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Day16/BinarySearchTree/src/assignment06/BinarySearchTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/Day16/BinarySearchTree/src/assignment06/BinarySearchTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Day16/BinarySearchTree/src/assignment06/TimingExperiment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/Day16/BinarySearchTree/src/assignment06/TimingExperiment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Day18/HashTables/src/assignment07/ChainingHashTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/Day18/HashTables/src/assignment07/ChainingHashTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Day2/Books/src/assignment02/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/Day2/Books/src/assignment02/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Day4/SortedArraySet/src/assignment03/BinarySearchSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/Day4/SortedArraySet/src/assignment03/BinarySearchSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Day4/SortedArraySet/src/assignment03/BinarySearchSetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/Day4/SortedArraySet/src/assignment03/BinarySearchSetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/Lab1.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/Lab1Questions.rtf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/src/lab01/DiffUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/Lab1/src/lab01/DiffUtilTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/LinkedListStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/LinkedListStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/LinkedListStackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/LinkedListStackTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/SinglyLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/SinglyLinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/SinglyLinkedListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/SinglyLinkedListTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/WebBrowser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/WebBrowser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/WebBrowserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/LinkedListStack/src/assignment05/WebBrowserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PacManApp/src/PacmanApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/PacManApp/src/PacmanApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/classicOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/demoMazeOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/mediumMazeOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/randomMazeOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/tinyMazeOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/tinyOpenOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/mazes/turnOutput.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../CS6012/PathFinder/src/assignment08/Assignment08Tests.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../CS6012/PathFinder/src/assignment08/Assignment08Tests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2ZjLe7l6jrcnlzGko0LhzXFQTUZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/corinnejones/myGithubrepo/CS6011/Day13",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2cba39de-077f-43b7-a373-ee5688fef96c" name="Changes" comment="" />
+      <created>1702930633638</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702930633638</updated>
+      <workItem from="1702930635104" duration="723000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

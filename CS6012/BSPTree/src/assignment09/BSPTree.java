@@ -2,7 +2,7 @@ package assignment09;
 
 import java.util.ArrayList;
 
-public class BSPTree implements SegmentCallback {
+public class BSPTree {
 
     public Node root_;
 
@@ -36,9 +36,38 @@ public class BSPTree implements SegmentCallback {
      * @param segments ArrayList of Segments to be added to the BSP Tree
      */
     public BSPTree(ArrayList<Segment> segments) {
-        for (Segment segment : segments) {
-            insert(segment);
+        root_ = buildTree(segments);
+    }
+
+    /**
+     * Recursively builds a Binary Space Partitioning (BSP) tree from a list of line segments
+     * @param segments - to be added
+     * @return - Node representing the root of the constructed BSP tree, or null if the empty/null
+     */
+    private Node buildTree(ArrayList<Segment> segments) {
+        if (segments == null || segments.isEmpty()) {
+            return null;
         }
+        Segment dividingSegment = segments.get((int) (Math.random() * segments.size()));
+        segments.remove(dividingSegment);
+        Node node = new Node(dividingSegment);
+
+        ArrayList<Segment> frontSegments = new ArrayList<>();
+        ArrayList<Segment> backSegments = new ArrayList<>();
+        for (Segment segment : segments) {
+            if (segment.whichSide(dividingSegment) > 0) {
+                frontSegments.add(segment);
+            } else if (segment.whichSide(dividingSegment) < 0) {
+                backSegments.add(segment);
+            } else {
+                Segment[] splitResult = dividingSegment.split(segment);
+                frontSegments.add(splitResult[0]);
+                backSegments.add(splitResult[1]);
+            }
+        }
+        node.front_ = buildTree(frontSegments);
+        node.back_ = buildTree(backSegments);
+        return node;
     }
 
     /**
@@ -125,17 +154,18 @@ public class BSPTree implements SegmentCallback {
             traverseFarToNearRecursive(currentNode.back_, x, y, callback);
             callback.callback(currentNode.segment_);
             traverseFarToNearRecursive(currentNode.front_, x, y, callback);
-        } else if (side > 0) {
+        } else {
             // Point is on the - side, traverse the front subtree first
             traverseFarToNearRecursive(currentNode.front_, x, y, callback);
             callback.callback(currentNode.segment_);
             traverseFarToNearRecursive(currentNode.back_, x, y, callback);
-        } else {
-            // Handle coincident segments
-            callback.callback(currentNode.segment_);
-            traverseFarToNearRecursive(currentNode.back_, x, y, callback);
-            traverseFarToNearRecursive(currentNode.front_, x, y, callback);
         }
+//        else {
+//            // Handle coincident segments
+//            callback.callback(currentNode.segment_);
+//            traverseFarToNearRecursive(currentNode.back_, x, y, callback);
+//            traverseFarToNearRecursive(currentNode.front_, x, y, callback);
+//        }
     }
 
     /**
@@ -179,15 +209,5 @@ public class BSPTree implements SegmentCallback {
                 }
             }
         }
-    }
-
-    /**
-     * Callback method to be called for each segment during tree traversal
-     *
-     * @param s - The segment being traversed
-     */
-    @Override
-    public void callback(Segment s) {
-
     }
 }

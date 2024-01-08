@@ -16,7 +16,7 @@ public class PacmanApp {
     static final int DotRadius = 7;
     public static void main(String[] args) throws IOException {
 
-        var mazeFile = "mediumMazeSol.txt";
+        var mazeFile = "/Users/corinnejones/myGithubrepo/CS6012/PathFinder/mazes/turnOutput.txt";
         var maze = readMaze(mazeFile);
 
         SwingUtilities.invokeLater(new Runnable() {
@@ -64,7 +64,7 @@ public class PacmanApp {
 
             updateDirection();
 
-            timer = new Timer(16, (ActionEvent e) ->{
+            timer = new Timer(1, (ActionEvent e) ->{
                 animate();
             });
             timer.start();

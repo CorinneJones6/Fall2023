@@ -70,7 +70,7 @@ function handleMsgCB(e){
         timeText.textContent = `[${timestamp}] `;
         timeText.classList.add('timestamp');
 
-        let outText=document.createTextNode(user + ": " + message)
+        let outText=document.createTextNode(user + ": " + message);
 
 
         rightDiv.appendChild(lineBreak);
